@@ -26,111 +26,12 @@
                 <img src="img/vision.png" class="logo" alt="" srcset="" />
             </div>
         </nav>
-        <div class="main_container">
-            <div class="question_container-wrapper">
-                <div class="question_container">
-                    <p>
-                        Which of the following is not a correct statement about
-                        Bitumen?
-                    </p>
-                    <div class="timer">30 sec</div>
-                </div>
-            </div>
-
-            <div class="option_container">
-                <form id="question_form">
-                    <div class="inputGroup">
-                        <input id="radio1" name="radio" type="radio" />
-                        <label for="radio1"
-                            >It’s a mixture of highly condensed polycyclic
-                            aromatic compounds
-                        </label>
-                    </div>
-                    <div class="inputGroup">
-                        <input id="radio2" name="radio" type="radio" />
-                        <label for="radio2"
-                            >Its is soluble in Carbon Disulphide
-                        </label>
-                    </div>
-                    <div class="inputGroup">
-                        <input
-                            id="radio3"
-                            name="radio"
-                            value="asd"
-                            type="radio"
-                        />
-                        <label for="radio3"
-                            >SARA analysis is used to determine bitumen
-                            chemistry
-                        </label>
-                    </div>
-
-                    <div class="inputGroup">
-                        <input id="radio4" name="radio" type="radio" />
-                        <label for="radio4"
-                            >All of above are correct statements</label
-                        >
-                    </div>
-                </form>
-            </div>
-            <div class="button_container">
-                <button id="send">submit</button>
-            </div>
-        </div>
+        <div class="main_container"></div>
     </body>
 
     <script>
-        let st =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1YmhhbSIsInBhc3N3b3JkIjoiYXNkYXNkIiwiZW1haWwiOiJzdWJoYW1wcmFzYWQ1NTJAZ21haWwuY29tIiwicGhvbmUiOiI5MjA1NTQ2MTczIiwiaWF0IjoxNjE0MzIwNTA4LCJleHAiOjE2MTY5MTI1MDh9.2yi2VY_itNL-yS0m70oioB4IzFjDjUvIG1b-gQGZTXo";
-        let room = "room";
-
-        const socket = io(`${window.location.hostname}:3000`, {
-            query: { room: room, userType: "admin", details: st },
-        });
-
-        socket.on("connect", () => {
-            console.log("connected");
-        });
-        socket.on("test", (data) => {
-            console.log(data);
-        });
-        socket.on(`${room}-timer`, (data) => {
-            console.log(data, " seconds");
-        });
-        socket.on("connect_error", (err) => {
-            console.log(err.message); // prints the message associated with the error
-        });
-        document.querySelector("#send").addEventListener("click", () => {
-            sendAnswer();
-            // document.querySelector("input[name=card]:checked").value
-        });
-        /*
-        document.querySelector("#delete").addEventListener("click", () => {
-            clear(document.querySelector("input[name=card]:checked").value);
-        });
-
-        */
-        // send answer for last question
-
-        let sendAnswer = (value) => {
-            console.log(
-                document.querySelector("input[name=radio]:checked").value,
-                "formdata"
-            );
-            return;
-            document.querySelector(".container").innerHTML = `
-                <iframe
-                width="600"
-                src="https://www.youtube.com/embed/QmdZmUoM6GQ?rel=0&showinfo=0&controls=1&autoplay=true&fullscreen=0&Settings=0"
-                frameborder="0"
-            ></iframe>`;
-
-            // socket.emit(`${room}-receiveAnsWer`, { id: value });
-        };
-
-        let clear = (value) => {
-            socket.emit(`${room}-clearPreviousQuestion`, { id: value });
-        };
+        const userType = "responder";
     </script>
+
     <script src="js/bundle.js"></script>
 </html>
