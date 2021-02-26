@@ -1,4 +1,4 @@
-import { elements, functionName } from "./elements";
+import { elements, functionName, globalData } from "./elements";
 
 export const renderQuestion = (data) => {
     let element = `<div class="question_container-wrapper">
@@ -33,9 +33,23 @@ export const renderQuestion = (data) => {
     }
 
     elements.timer = document.querySelector(".timer");
-
     document.querySelector("#send").addEventListener("click", () => {
         functionName.sendAnswer();
         return;
     });
+
+    startTimer(data.remainingtime);
+};
+
+let startTimer = (remainingTimeInSec) => {
+    let currentTime = remainingTimeInSec;
+    let timer = setInterval(() => {
+        currentTime--;
+        elements.timer.innerHTML = `${currentTime} sec`;
+    }, 1000);
+
+    let timeOut = setTimeout(() => {
+        clearInterval(timer);
+        clearTimeout(timeOut);
+    }, remainingTimeInSec * 1000);
 };

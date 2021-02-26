@@ -30,14 +30,14 @@ module.exports = class Question {
     }
     timerForEachQuestion(timePeriod = 30) {
         timePeriod += 1;
-        this.#remainingTime = 0;
+        this.#remainingTime = timePeriod;
 
         this.#timer = setInterval(() => {
             this.#io
                 .to(this.#room)
                 .emit(`${this.#room}-timer`, this.#remainingTime);
 
-            this.#remainingTime++;
+            this.#remainingTime--;
             console.log(this.#remainingTime);
         }, 1000);
 

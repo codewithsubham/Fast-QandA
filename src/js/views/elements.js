@@ -3,3 +3,5 @@ export const elements = {
 };
 
 export const functionName = {};
+
+export const globalData = {};
