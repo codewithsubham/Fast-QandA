@@ -1,5 +1,5 @@
 import * as renderQuestion from "./views/renderQuestion";
-import { elements } from "./views/elements";
+import { elements, functionName } from "./views/elements";
 
 let socket;
 
@@ -28,7 +28,7 @@ let initConnection = () => {
         console.log("connected");
     });
     socket.on("test", (data) => {
-        renderQuestion.renderQuestion(data);
+        startQuestion(data);
     });
     socket.on(`${room}-timer`, (data) => {
         console.log(data, " seconds");
@@ -38,18 +38,13 @@ let initConnection = () => {
     });
 };
 
-/*
-document.querySelector("#delete").addEventListener("click", () => {
-clear(document.querySelector("input[name=card]:checked").value);
-});
-
-*/
 // send answer for last question
 
-let sendAnswer = (value) => {
+functionName.sendAnswer = (value) => {
     console.log(
-        document.querySelector("input[name=radio]:checked").value,
-        "formdata"
+        document
+            .querySelector("input[name=radio]:checked")
+            .getAttribute("questionid")
     );
     return;
     document.querySelector(".container").innerHTML = `
@@ -60,6 +55,10 @@ let sendAnswer = (value) => {
 ></iframe>`;
 
     // socket.emit(`${room}-receiveAnsWer`, { id: value });
+};
+
+let startQuestion = (data) => {
+    renderQuestion.renderQuestion(data, socket);
 };
 
 let clear = (value) => {

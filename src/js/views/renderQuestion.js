@@ -1,4 +1,4 @@
-import { elements } from "./elements";
+import { elements, functionName } from "./elements";
 
 export const renderQuestion = (data) => {
     let element = `<div class="question_container-wrapper">
@@ -6,7 +6,7 @@ export const renderQuestion = (data) => {
         <p>
         ${data.question}
                     </p>
-        <div class="timer">${data.remainingtime}</div>
+        <div class="timer">${data.remainingtime} sec</div>
     </div>
 </div>
 
@@ -24,7 +24,7 @@ export const renderQuestion = (data) => {
 
     for (let option in data.options) {
         let optionsHTML = ` <div class="inputGroup">
-        <input id="${option}" name="radio" value='${option}' type="radio" />
+        <input id="${option}" name="radio" value='${option}' questionid="${data.questionid}" type="radio" />
         <label for="${option}">${data.options[option]}</label>
     </div>`;
         document
@@ -35,6 +35,7 @@ export const renderQuestion = (data) => {
     elements.timer = document.querySelector(".timer");
 
     document.querySelector("#send").addEventListener("click", () => {
-        console.log("hello world");
+        functionName.sendAnswer();
+        return;
     });
 };
