@@ -91,7 +91,7 @@
         socket.on("connect", () => {
             console.log("connected");
         });
-        socket.on(room, (data) => {
+        socket.on("test", (data) => {
             console.log(data);
         });
         socket.on(`${room}-timer`, (data) => {

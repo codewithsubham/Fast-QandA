@@ -1,0 +1,23 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+*,
+*::before,
+*::after{
+
+    box-sizing: inherit;
+}
+html{
+    box-sizing: inherit;
+}
+ul {
+
+    list-style: none;
+}
+
+.stream_ul{
+
+    margin: 0 auto !important;
+}

@@ -22,8 +22,6 @@ const io = require("socket.io")(server, {
  */
 
 io.use(function (socket, next) {
-    console.log(socket.handshake.query, "from  middlewear");
-
     if (socket.handshake.query.details) {
         jwt.verify(
             socket.handshake.query.details,
@@ -31,7 +29,6 @@ io.use(function (socket, next) {
             (err, decoded) => {
                 console.log("code expired");
                 if (err) return next(new Error("Authentication failed"));
-
                 //socket decoded stores decoded data from jwt token
                 socket.decoded = decoded;
                 next();
@@ -41,9 +38,10 @@ io.use(function (socket, next) {
     } else {
         next(new Error("authentication token missing"));
     }
-
     next(new Error("Authentication failed"));
 });
+
+questionObject["test"] = new Question(io, "test");
 
 io.on("connection", (socket, err) => {
     // get the room name  and other details
@@ -53,6 +51,8 @@ io.on("connection", (socket, err) => {
     let userType = socket.handshake.query.userType;
     // join inside a room
     socket.join(room);
+
+    io.to(room).emit(`test`, questionObject["test"].getQuestionObject());
 
     // if user type is admin (teacher) then broadcast to all student that teacher is online
     if (userType === "admin") {
