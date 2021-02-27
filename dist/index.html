@@ -26,11 +26,79 @@
                 <img src="img/vision.png" class="logo" alt="" srcset="" />
             </div>
         </nav>
-        <div class="main_container"></div>
+
+        <!-- show if logged in as a teacher-->
+
+        <div class="teacher_maincontainer-holder">
+            <div class="section section_1">
+                <div class="slides_heading_container slides_reset">
+                    <p>SLIDES</p>
+                    <div class="add_slides">
+                        <button id="add_slides">
+                            <svg
+                                class="create_icon location_icon"
+                                data-item="embedcode"
+                            >
+                                <use
+                                    xlink:href="img/svg/sprite.svg#icon-add-black-18dp"
+                                    data-item="embedcode"
+                                ></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="slides_holder slides_reset">
+                    <div class="slides">
+                        <div class="content">
+                            <iframe
+                                width="100%"
+                                src="https://www.youtube.com/embed/QmdZmUoM6GQ?rel=0&showinfo=0&autohide=1&modestbranding=0&controls=0&frameborder=0&autoplay=false&controls=0&fullscreen=0&Settings=0"
+                                frameborder="0"
+                            ></iframe>
+                        </div>
+
+                        <div class="question">
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Quaerat veroluptate eius cumque adipisci
+                            nostrum. Assumenda, odit!
+                        </div>
+                    </div>
+                    <div class="slides">
+                        <div class="content">
+                            <iframe
+                                width="100%"
+                                src="https://www.youtube.com/embed/QmdZmUoM6GQ?rel=0&showinfo=0&autohide=1&modestbranding=0&controls=0&frameborder=0&autoplay=false&controls=0&fullscreen=0&Settings=0"
+                                frameborder="0"
+                            ></iframe>
+                        </div>
+
+                        <div class="question">
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Quaerat veroluptate eius cumque adipisci
+                            nostrum. Assumenda, odit!
+                        </div>
+                    </div>
+                    <div class="slides">
+                        <div class="content"></div>
+
+                        <div class="question">
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Quaerat veroluptate eius cumque adipisci
+                            nostrum. Assumenda, odit!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section section_2"></div>
+            <div class="section section_3"></div>
+        </div>
+
+        <!-- show if logged in as student 
+        <div class="main_container"></div>-->
     </body>
 
     <script>
-        const userType = "responder";
+        const userType = "teacher";
     </script>
 
     <script src="js/bundle.js"></script>

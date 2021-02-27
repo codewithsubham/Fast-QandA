@@ -6,10 +6,16 @@ let socket;
 window.addEventListener("load", () => {
     console.log("window loaded");
     initConnection();
-    if (userType === "responder") {
-        // render for responder
+    if (typeof userType != undefined) {
+        if (userType === "responder") {
+            // render for responder
+            socket.on("test", (data) => {
+                startQuestion(data);
+            });
+            return;
+        }
 
-        return;
+        //render for teacher
     }
 
     // render for poster
@@ -27,9 +33,7 @@ let initConnection = () => {
     socket.on("connect", () => {
         console.log("connected");
     });
-    socket.on("test", (data) => {
-        startQuestion(data);
-    });
+
     socket.on(`${room}-timer`, (data) => {
         console.log(data, " seconds");
     });

@@ -4,6 +4,7 @@
     --secondary-color: #4fb5a4;
     --primary-yellow: #fde387;
     --text-color: #414141;
+    --nav-height: 15rem;
 }
 
 html,
@@ -14,8 +15,10 @@ body {
 
 nav {
     position: relative;
-    height: 15rem;
+    height: var(--nav-height);
     display: flex;
+    position: absolute;
+    width: 100%;
 }
 .main_container {
     background: white;
@@ -192,4 +195,63 @@ nav .logo-container {
 code {
     background-color: #9aa3ac;
     padding: 0 8px;
+}
+
+.teacher_maincontainer-holder {
+    display: grid;
+    grid-template-columns: 25% 55% 20%;
+    grid-auto-rows: 100vh;
+}
+
+.teacher_maincontainer-holder .section {
+}
+.teacher_maincontainer-holder .section_1 {
+    margin-top: calc(var(--nav-height) + 5px);
+}
+
+.slides_reset {
+    border-radius: 2px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.teacher_maincontainer-holder .section_1 .slides_heading_container {
+    min-height: 5rem;
+    background-color: white;
+}
+.teacher_maincontainer-holder .section_1 .slides_holder {
+    height: calc(100vh - 21rem);
+    overflow-y: scroll;
+}
+.teacher_maincontainer-holder .section_2 {
+}
+.teacher_maincontainer-holder .section_3 {
+}
+.slides_heading_container {
+    grid-template-columns: 75% 25%;
+    grid-auto-rows: auto;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.slides_heading_container .add_slides {
+    width: 100%;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+}
+
+.slides_holder .question {
+    background-color: #fde387;
+    margin: 0 auto;
+    min-height: 5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    text-align: center;
+    color: var(--text-color);
+    margin-top: -4px;
 }

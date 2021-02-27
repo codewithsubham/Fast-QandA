@@ -7,7 +7,6 @@ module.exports = class Question {
     #room;
 
     constructor(io, room) {
-        console.log("constructed");
         this.#io = io;
         this.#room = room;
         this.timerForEachQuestion();
@@ -28,21 +27,17 @@ module.exports = class Question {
             },
         };
     }
-    timerForEachQuestion(timePeriod = 30) {
-        timePeriod += 1;
+    timerForEachQuestion(timePeriod = 5) {
         this.#remainingTime = timePeriod;
 
         this.#timer = setInterval(() => {
-            this.#io
-                .to(this.#room)
-                .emit(`${this.#room}-timer`, this.#remainingTime);
-
-            this.#remainingTime--;
             console.log(this.#remainingTime);
+            this.#remainingTime--;
         }, 1000);
 
         this.#timeOut = setTimeout(() => {
             console.log("Clearing");
+            this.#remainingTime = 0;
             clearInterval(this.#timer);
             clearTimeout(this.#timeOut);
         }, timePeriod * 1000);

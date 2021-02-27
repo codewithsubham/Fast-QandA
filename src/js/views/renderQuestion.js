@@ -6,6 +6,7 @@ export const renderQuestion = (data) => {
         <p>
         ${data.question}
                     </p>
+                    
         <div class="timer">${data.remainingtime} sec</div>
     </div>
 </div>
@@ -43,12 +44,17 @@ export const renderQuestion = (data) => {
 
 let startTimer = (remainingTimeInSec) => {
     let currentTime = remainingTimeInSec;
+
+    //alert(currentTime);
     let timer = setInterval(() => {
         currentTime--;
         elements.timer.innerHTML = `${currentTime} sec`;
     }, 1000);
 
     let timeOut = setTimeout(() => {
+        document.querySelector("#send").disabled = true;
+        document.querySelector("#send").style.background = "#ccc";
+        document.querySelector("#send").style.color = "#00000066";
         clearInterval(timer);
         clearTimeout(timeOut);
     }, remainingTimeInSec * 1000);
