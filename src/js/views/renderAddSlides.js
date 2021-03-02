@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { renderSlide } from "./renderSlide";
 
 export const renderAddSlideForm = () => {
+    let id = uuidv4();
     let element = ` <div class="add_slides_form-container">
     <div class="add_slides-form">
         <div class="slides">
@@ -52,8 +53,8 @@ export const renderAddSlideForm = () => {
             </div>
         </div>
         <div class="form_button">
-            <button id="save_slides" class="slides_botton-add">Add</button>
-            <button id="save_slides" class="slides_botton-close">Close</button>
+            <button id="save_slides" class="slides_botton-add" >Add</button>
+            <button id="save_slides" class="slides_botton-close" >Close</button>
         </div>
        
     </div>
@@ -62,25 +63,25 @@ export const renderAddSlideForm = () => {
     document
         .querySelector(".slides_botton-add")
         .addEventListener("click", (e) => {
-            let id = uuidv4();
             let tempObj = {};
-            globalData.addSlidesJsonData[uuidv4()];
             let x = [
                 ...e.target.parentNode.parentNode.parentNode.querySelectorAll(
                     ".slides input ,  textarea"
                 ),
             ];
             x.map((element) => {
-                tempObj[element.name] = element.value;
+                tempObj[element.name] = element.value.trim();
             });
             globalData.addSlidesJsonData[id] = tempObj;
             // renderSlide is function to add slides to page from addSlides Form
-            renderSlide(id);
+            if (renderSlide(id)) {
+                e.target.parentNode.parentNode.parentNode.remove();
+            }
         });
     document
         .querySelector(".slides_botton-close")
         .addEventListener("click", (e) => {
-            console.log(e.target.parentNode.parentNode.parentNode.remove());
+            e.target.parentNode.parentNode.parentNode.remove();
         });
     return;
 };

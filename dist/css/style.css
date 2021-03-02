@@ -350,6 +350,12 @@ code {
 
     background-color: #fff;
 }
+.slides_holder .content {
+    background-color: white;
+}
+.slides_holder p {
+    width: 100%;
+}
 .slides_holder .question {
     align-items: center;
     margin: 0 auto;
