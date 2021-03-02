@@ -1,11 +1,12 @@
 import * as renderQuestion from "./views/renderQuestion";
-import { elements, functionName } from "./views/elements";
+import { elements, functionName, globalData } from "./views/elements";
+import * as renderAddSlideForm from "./views/renderAddSlides";
 
 let socket;
 
 window.addEventListener("load", () => {
     console.log("window loaded");
-    initConnection();
+    //initConnection();
     if (typeof userType != undefined) {
         if (userType === "responder") {
             // render for responder
@@ -15,10 +16,10 @@ window.addEventListener("load", () => {
             return;
         }
 
+        initTeacherPanel();
+
         //render for teacher
     }
-
-    // render for poster
 });
 
 let initConnection = () => {
@@ -39,6 +40,15 @@ let initConnection = () => {
     });
     socket.on("connect_error", (err) => {
         console.log(err.message); // prints the message associated with the error
+    });
+};
+
+let initTeacherPanel = () => {
+    elements.add_slides.addEventListener("click", () => {
+        //render add slides form
+        renderAddSlideForm.renderAddSlideForm();
+        return;
+        // open a model to add slides
     });
 };
 

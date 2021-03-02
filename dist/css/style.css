@@ -199,14 +199,84 @@ code {
 
 .teacher_maincontainer-holder {
     display: grid;
-    grid-template-columns: 25% 55% 20%;
+    grid-template-columns: 35% 57% 8%;
     grid-auto-rows: 100vh;
 }
 
 .teacher_maincontainer-holder .section {
 }
 .teacher_maincontainer-holder .section_1 {
-    margin-top: calc(var(--nav-height) + 5px);
+    padding: 1rem 0;
+}
+
+.teacher_maincontainer-holder .section_1 .add_slides_form-container {
+    width: 95%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    background-color: #f6f6f6;
+    margin-bottom: 5px;
+    border-radius: 2px;
+}
+.teacher_maincontainer-holder .section_1 .add_slides_form-container input {
+    display: block;
+    width: 100%;
+    width: 100%;
+    padding: 1rem 2rem;
+    border: 1px solid #80868b;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 1.2rem;
+}
+.teacher_maincontainer-holder .section_1 .add_slides_form-container input {
+    margin-bottom: 1rem;
+    background-color: #f6f6f6;
+
+    border: 2px solid var(--main-background-color);
+}
+
+.label_position {
+    background: #f6f6f6;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #80868b;
+    font-size: 1.2rem;
+    font-weight: 600;
+    left: 1rem;
+    padding: 0 8px;
+    color: var(--main-background-color);
+    position: absolute;
+    top: -9px;
+    z-index: 1;
+    text-transform: capitalize;
+}
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--main-background-color);
+    font-weight: 600;
+    text-transform: capitalize;
+    opacity: 1; /* Firefox */
+}
+.teacher_maincontainer-holder .section_1 .add_slides_form-container textarea {
+    display: block;
+    width: 100%;
+    padding: 1rem 2rem;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 1.2rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    font-weight: 400;
+    color: var(--text-color);
+    font-style: inherit;
+    align-items: center;
+    border: 2px solid var(--main-background-color);
+    position: relative;
+    background-color: #f6f6f6;
+}
+
+.form_slides-question-container {
+    position: relative;
+    margin-bottom: 1.5rem;
 }
 
 .slides_reset {
@@ -215,25 +285,56 @@ code {
     margin: 0 auto;
 }
 
-.teacher_maincontainer-holder .section_1 .slides_heading_container {
-    min-height: 5rem;
-    background-color: white;
-}
 .teacher_maincontainer-holder .section_1 .slides_holder {
-    height: calc(100vh - 21rem);
+    height: 100%;
     overflow-y: scroll;
 }
 .teacher_maincontainer-holder .section_2 {
 }
+
 .teacher_maincontainer-holder .section_3 {
+    padding: 1rem 0;
 }
-.slides_heading_container {
-    grid-template-columns: 75% 25%;
-    grid-auto-rows: auto;
-    display: grid;
-    justify-items: center;
+.teacher_maincontainer-holder .section_3 .tools_container {
+    background: #f6f6f6;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 4px;
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+.teacher_maincontainer-holder .section_3 .tools_container .add_slides {
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+}
+.teacher_maincontainer-holder
+    .section_3
+    .tools_container
+    .add_slides
+    #add_slides {
+    background: var(--main-background-color);
+    width: 60%;
+    border-radius: 6px;
+}
+
+.teacher_maincontainer-holder .section_3 .tools_container .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10rem;
+}
+.teacher_maincontainer-holder .section_3 .tools_container button svg {
+    width: 3.5rem;
+    height: 3.5rem;
+    fill: white;
+}
+
+.slides_heading_container {
 }
 
 .slides_heading_container .add_slides {
@@ -244,14 +345,47 @@ code {
     justify-content: center;
 }
 
+.slides_holder .slides:not(:last-child) {
+    margin-bottom: 4px;
+
+    background-color: #fff;
+}
 .slides_holder .question {
-    background-color: #fde387;
+    align-items: center;
     margin: 0 auto;
     min-height: 5rem;
     font-size: 1.2rem;
     font-weight: 600;
     padding: 1rem 2rem;
-    text-align: center;
+    display: flex;
     color: var(--text-color);
-    margin-top: -4px;
+    background-color: #fff;
+}
+.slides_holder .question #play_slides {
+    display: flex;
+    align-items: center;
+    /* background: none; */
+    box-shadow: none;
+}
+.slides_holder .question #play_slides svg {
+    fill: var(--main-background-color);
+}
+.slides_botton-add,
+.slides_botton-close {
+    border: 2px solid var(--main-background-color);
+    background: var(--main-background-color);
+    padding: 1rem 1.2rem;
+    color: white;
+    font-family: inherit;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+    font-weight: 600;
+    border-radius: 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 20%;
+    color: white;
+}
+.slides_botton-close {
+    background: none;
+    color: var(--main-background-color);
 }
