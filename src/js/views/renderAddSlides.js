@@ -1,5 +1,7 @@
-import { elements, globalData } from "./elements";
+import { elements, globalData, functionName } from "./elements";
 import { v4 as uuidv4 } from "uuid";
+
+import { renderSlide } from "./renderSlide";
 
 export const renderAddSlideForm = () => {
     let element = ` <div class="add_slides_form-container">
@@ -72,6 +74,8 @@ export const renderAddSlideForm = () => {
                 tempObj[element.name] = element.value;
             });
             globalData.addSlidesJsonData[id] = tempObj;
+            // renderSlide is function to add slides to page from addSlides Form
+            renderSlide(id);
         });
     document
         .querySelector(".slides_botton-close")

@@ -52,6 +52,8 @@ let initTeacherPanel = () => {
     });
 };
 
+// render slides which was added using renderAddSlides
+
 // send answer for last question
 
 functionName.sendAnswer = (value) => {
