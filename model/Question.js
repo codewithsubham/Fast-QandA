@@ -27,7 +27,7 @@ module.exports = class Question {
             },
         };
     }
-    timerForEachQuestion(timePeriod = 5) {
+    timerForEachQuestion(timePeriod = 50) {
         this.#remainingTime = timePeriod;
 
         this.#timer = setInterval(() => {

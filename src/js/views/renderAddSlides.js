@@ -1,87 +1,62 @@
-import { elements, globalData, functionName } from "./elements";
-import { v4 as uuidv4 } from "uuid";
+import { elements, functionName, globalData } from "./elements";
 
-import { renderSlide } from "./renderSlide";
+export const renderSlide = (questionId) => {
+    if (globalData.addSlidesJsonData[questionId].question.trim() === "") {
+        console.log("questin was empty ");
+        return false;
+    }
+    //https://www.youtube.com/watch?v=5FndZ_hoeGU
+    let src = `https://www.youtube.com/embed/${globalData.addSlidesJsonData[
+        questionId
+    ].media_source.trim()}?rel=0&showinfo=0&autohide=1&modestbranding=0&controls=0&frameborder=0&autoplay=false&controls=0&fullscreen=0&Settings=0`;
+    //frameborder = "0";
+    let iframe = "";
+    if (globalData.addSlidesJsonData[questionId].media_source.trim() !== "") {
+        iframe = `<iframe
+        width="100%"
+        src="${src}"
+        frameborder="0"
+    ></iframe>`;
+    }
 
-export const renderAddSlideForm = () => {
-    let id = uuidv4();
-    let element = ` <div class="add_slides_form-container">
-    <div class="add_slides-form">
-        <div class="slides">
-            <div class="form_slides-question-container">
-                <div class="label label_position">
-                    <label for="question_1">media source</label>
-                </div>
-                <textarea
-                    type="text"
-                    name="media_source"
-                    id="media_source"
-                    style="resize: none"
-                ></textarea>
-            </div>
-            <div class="form_slides-question-container">
-                <div class="label label_position">
-                    <label for="question_1">Question</label>
-                </div>
-                <textarea
-                    id="question_1"
-                    name="question"
-                    style="resize: none"
-                ></textarea>
-            </div>
-            <div class="form_slides-option-container">
-                <input
-                    type="text"
-                    name="A"
-                    placeholder="option A"
-                />
-                <input
-                    type="text"
-                    name="B"
-                    placeholder="option B"
-                />
-                <input
-                    type="text"
-                    name="C"
-                    placeholder="option C"
-                />
-                <input
-                    type="text"
-                    name="d"
-                    placeholder="option D"
-                />
-            </div>
-        </div>
-        <div class="form_button">
-            <button id="save_slides" class="slides_botton-add" >Add</button>
-            <button id="save_slides" class="slides_botton-close" >Close</button>
-        </div>
-       
-    </div>
-</div>`;
-    elements.section_1.insertAdjacentHTML("afterbegin", element);
-    document
-        .querySelector(".slides_botton-add")
-        .addEventListener("click", (e) => {
-            let tempObj = {};
-            let x = [
-                ...e.target.parentNode.parentNode.parentNode.querySelectorAll(
-                    ".slides input ,  textarea"
-                ),
-            ];
-            x.map((element) => {
-                tempObj[element.name] = element.value.trim();
-            });
-            globalData.addSlidesJsonData[id] = tempObj;
-            // renderSlide is function to add slides to page from addSlides Form
-            if (renderSlide(id)) {
-                e.target.parentNode.parentNode.parentNode.remove();
-            }
-        });
-    document
-        .querySelector(".slides_botton-close")
-        .addEventListener("click", (e) => {
-            e.target.parentNode.parentNode.parentNode.remove();
-        });
-    return;
+    let htmlElement = ` <div class="slides">
+                        <div class="content">
+                                ${iframe}
+                        </div>
+                        <div class="question">
+                        <p>
+                            ${globalData.addSlidesJsonData[
+                                questionId
+                            ].question.trim()}
+                            </p>
+                            <button id="play_slides">
+                                <svg
+                                    class="create_icon location_icon"
+                                    data-item="embedcode"
+                                >
+                                    <use
+                                        xlink:href="img/svg/sprite.svg#icon-send"
+                                        data-item="embedcode"
+                                    ></use>
+                                </svg>
+                            </button>
+                            <button id="edit_slides">
+                                <svg
+                                    class="create_icon location_icon"
+                                    data-item="embedcode"
+                                >
+                                    <use
+                                        xlink:href="img/svg/sprite.svg#icon-edit"
+                                        data-item="embedcode"
+                                    ></use>
+                                </svg>
+                            </button>
+                        </div></div>`;
+
+    elements.slides_holder.insertAdjacentHTML("afterbegin", htmlElement);
+
+    document.querySelector("#play_slides").addEventListener("click", () => {
+        console.log(globalData.addSlidesJsonData[questionId]);
+    });
+    return true;
 };

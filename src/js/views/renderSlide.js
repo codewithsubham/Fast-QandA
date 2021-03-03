@@ -35,7 +35,18 @@ export const renderSlide = (questionId) => {
                                     data-item="embedcode"
                                 >
                                     <use
-                                        xlink:href="img/svg/sprite.svg#icon-play"
+                                        xlink:href="img/svg/sprite.svg#icon-send"
+                                        data-item="embedcode"
+                                    ></use>
+                                </svg>
+                            </button>
+                            <button id="edit_slides">
+                                <svg
+                                    class="create_icon location_icon"
+                                    data-item="embedcode"
+                                >
+                                    <use
+                                        xlink:href="img/svg/sprite.svg#icon-edit"
                                         data-item="embedcode"
                                     ></use>
                                 </svg>

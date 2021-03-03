@@ -48,6 +48,8 @@ let startTimer = (remainingTimeInSec) => {
     //alert(currentTime);
     let timer = setInterval(() => {
         currentTime--;
+        console.log(currentTime);
+        console.log(elements.timer);
         elements.timer.innerHTML = `${currentTime} sec`;
     }, 1000);
 
