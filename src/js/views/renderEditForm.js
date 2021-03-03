@@ -51,6 +51,11 @@ export const renderEditSlideForm = (questionId) => {
                 <use xlink:href="img/svg/sprite.svg#icon-delete"></use>
             </svg>
         </button>
+        <button id="close" >
+            <svg class="create_icon location_icon">
+                <use xlink:href="img/svg/sprite.svg#icon-close"></use>
+            </svg>
+        </button>
     </div>
 </div>`;
     elements.edit_form.innerHTML = element;
@@ -65,42 +70,20 @@ export const renderEditSlideForm = (questionId) => {
         .addEventListener("click", send.bind(this, questionId));
     document
         .querySelector("#update")
-        .addEventListener("click", update.bind(this, questionId), {
-            once: true,
-        });
-    return;
+        .addEventListener("click", update.bind(this, questionId));
     document
-        .querySelector(".slides_botton-add")
-        .addEventListener("click", (e) => {
-            let tempObj = {};
-            let x = [
-                ...e.target.parentNode.parentNode.parentNode.querySelectorAll(
-                    ".slides input ,  textarea"
-                ),
-            ];
-            x.map((element) => {
-                tempObj[element.name] = element.value.trim();
-            });
-            globalData.addSlidesJsonData[id] = tempObj;
-            // renderSlide is function to add slides to page from addSlides Form
-            if (renderSlide(id)) {
-                e.target.parentNode.parentNode.parentNode.remove();
-            }
-        });
-    document
-        .querySelector(".slides_botton-close")
-        .addEventListener("click", (e) => {
-            e.target.parentNode.parentNode.parentNode.remove();
-        });
+        .querySelector("#close")
+        .addEventListener("click", close, { once: true });
     return;
 };
 
 let deleteSlide = (questionId, e) => {
-    console.log(questionId);
     document.querySelector(`.slide-${questionId}`).remove();
     document.querySelector(".question_action--container").remove();
 };
-
+let close = () => {
+    document.querySelector(".question_action--container").remove();
+};
 let send = (questionId, e) => {
     console.log(globalData.addSlidesJsonData[questionId], "from send");
 };
