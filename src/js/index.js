@@ -56,6 +56,10 @@ let initTeacherPanel = () => {
 
 // send answer for last question
 
+functionName.publishQuestion = (questionId) => {
+    console.log("from publish function", questionId);
+};
+
 functionName.sendAnswer = (value) => {
     console.log(
         document
