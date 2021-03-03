@@ -1,6 +1,8 @@
 import { elements, functionName, globalData } from "./elements";
+import { renderEditSlideForm } from "./renderEditForm";
 
 export const renderSlide = (questionId) => {
+    console.log("from renderslide", questionId);
     if (globalData.addSlidesJsonData[questionId].question.trim() === "") {
         console.log("questin was empty ");
         return false;
@@ -19,12 +21,12 @@ export const renderSlide = (questionId) => {
     ></iframe>`;
     }
 
-    let htmlElement = ` <div class="slides">
+    let htmlElement = ` <div class="slides slide-${questionId}">
                         <div class="content">
                                 ${iframe}
                         </div>
                         <div class="question">
-                        <p>
+                        <p class="slide_question_id-${questionId}">
                             ${globalData.addSlidesJsonData[
                                 questionId
                             ].question.trim()}
@@ -56,6 +58,10 @@ export const renderSlide = (questionId) => {
     elements.slides_holder.insertAdjacentHTML("afterbegin", htmlElement);
 
     document.querySelector("#play_slides").addEventListener("click", () => {
+        console.log(globalData.addSlidesJsonData[questionId]);
+    });
+    document.querySelector("#edit_slides").addEventListener("click", () => {
+        renderEditSlideForm(questionId);
         console.log(globalData.addSlidesJsonData[questionId]);
     });
     return true;

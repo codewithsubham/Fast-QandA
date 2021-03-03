@@ -383,7 +383,10 @@ code {
 }
 .slides_holder p {
     width: 100%;
+    word-break: break-all;
+    margin-right: 1rem;
 }
+
 .slides_holder .question {
     align-items: center;
     margin: 0 auto;
@@ -414,7 +417,7 @@ code {
     padding: 1rem 1.2rem;
     color: white;
     font-family: inherit;
-    box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+    box-shadow: 0 2px 5px rgb(0 0 0 10%);
     font-weight: 600;
     border-radius: 2px;
     cursor: pointer;
