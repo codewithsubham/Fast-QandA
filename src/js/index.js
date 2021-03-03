@@ -6,7 +6,7 @@ let socket;
 
 window.addEventListener("load", () => {
     console.log("window loaded");
-    //initConnection();
+    initConnection();
     if (typeof userType != undefined) {
         if (userType === "responder") {
             // render for responder
@@ -58,6 +58,7 @@ let initTeacherPanel = () => {
 
 functionName.publishQuestion = (questionId) => {
     console.log("from publish function", questionId);
+    socket.emit("room-postQuestion", globalData.addSlidesJsonData[questionId]);
 };
 
 functionName.sendAnswer = (value) => {

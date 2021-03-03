@@ -6,7 +6,7 @@ module.exports = class Question {
     #io;
     #room;
 
-    constructor(io, room) {
+    constructor(io, room, data) {
         this.#io = io;
         this.#room = room;
         this.timerForEachQuestion();

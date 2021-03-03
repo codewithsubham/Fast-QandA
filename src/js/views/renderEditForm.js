@@ -85,7 +85,7 @@ let close = () => {
     document.querySelector(".question_action--container").remove();
 };
 let send = (questionId, e) => {
-    console.log(globalData.addSlidesJsonData[questionId], "from send");
+    functionName.publishQuestion(questionId);
 };
 
 let update = (questionId) => {
@@ -97,12 +97,6 @@ let update = (questionId) => {
 
     allInputs.map((element) => {
         if (element.name === "question") {
-            console.log(
-                element.value,
-                "from inside question",
-                questionId,
-                document.querySelector(`.slide_question_id-${questionId}`)
-            );
             document.querySelector(
                 `.slide_question_id-${questionId}`
             ).innerHTML = element.value;

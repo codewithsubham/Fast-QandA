@@ -2,9 +2,7 @@ import { elements, functionName, globalData } from "./elements";
 import { renderEditSlideForm } from "./renderEditForm";
 
 export const renderSlide = (questionId) => {
-    console.log("from renderslide", questionId);
     if (globalData.addSlidesJsonData[questionId].question.trim() === "") {
-        console.log("questin was empty ");
         return false;
     }
     //https://www.youtube.com/watch?v=5FndZ_hoeGU
@@ -58,11 +56,10 @@ export const renderSlide = (questionId) => {
     elements.slides_holder.insertAdjacentHTML("afterbegin", htmlElement);
 
     document.querySelector("#play_slides").addEventListener("click", () => {
-        console.log(globalData.addSlidesJsonData[questionId]);
+        functionName.publishQuestion(questionId);
     });
     document.querySelector("#edit_slides").addEventListener("click", () => {
         renderEditSlideForm(questionId);
-        console.log(globalData.addSlidesJsonData[questionId]);
     });
     return true;
 };

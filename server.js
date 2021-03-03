@@ -41,8 +41,6 @@ io.use(function (socket, next) {
     next(new Error("Authentication failed"));
 });
 
-questionObject["test"] = new Question(io, "test");
-
 io.on("connection", (socket, err) => {
     // get the room name  and other details
     let room = socket.handshake.query.room;
@@ -51,8 +49,6 @@ io.on("connection", (socket, err) => {
     let userType = socket.handshake.query.userType;
     // join inside a room
     socket.join(room);
-
-    io.to(room).emit(`test`, questionObject["test"].getQuestionObject());
 
     // if user type is admin (teacher) then broadcast to all student that teacher is online
     if (userType === "admin") {
@@ -63,7 +59,11 @@ io.on("connection", (socket, err) => {
     // send question to all student
 
     socket.on(`${room}-postQuestion`, (data) => {
-        io.to(room).emit(`${room}-receiveQuestion`, data);
+        questionObject[room] = new Question(io, room, data);
+        io.to(room).emit(
+            `${room}-receiveQuestion`,
+            questionObject[room].getQuestionObject()
+        );
     });
 
     // ${room}-receiveAnswer receive answer from all students
@@ -95,7 +95,6 @@ io.on("connection", (socket, err) => {
             questionObject.room.deleteTimers();
             delete questionObject.room;
         }
-        console.log("clearing");
     });
 
     // handle disconnect users
