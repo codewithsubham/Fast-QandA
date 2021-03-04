@@ -1,7 +1,6 @@
 import { elements, globalData, functionName } from "./elements";
 
 export const renderEditSlideForm = (questionId) => {
-    console.log(questionId, "from edit form");
     let mediaSourceElement = "";
     if (globalData.addSlidesJsonData[questionId].media_source !== "") {
         mediaSourceElement = `<div class="inputGroup-toolbar">
@@ -20,20 +19,7 @@ export const renderEditSlideForm = (questionId) => {
 
     <div class="option_container">
         ${mediaSourceElement}
-        <div class="inputGroup-toolbar">
-            <input type="text" name="A" id="A"  value="${globalData.addSlidesJsonData[questionId].A}"
-            />
-        </div>
-        <div class="inputGroup-toolbar">
-            <input type="text" name="B" id="B"  value="${globalData.addSlidesJsonData[questionId].B}"/>
-        </div>
-        <div class="inputGroup-toolbar">
-            <input type="text" name="C" id="C" value="${globalData.addSlidesJsonData[questionId].C}" />
-        </div>
-
-        <div class="inputGroup-toolbar">
-            <input type="text" name="D" id="D" value="${globalData.addSlidesJsonData[questionId].D}" />
-        </div>
+        
     </div>
     <div class="button_container">
         <button id="send" >
@@ -59,6 +45,16 @@ export const renderEditSlideForm = (questionId) => {
     </div>
 </div>`;
     elements.edit_form.innerHTML = element;
+    for (let option in globalData.addSlidesJsonData[questionId].options) {
+        let optionHtml = `<div class="inputGroup-toolbar">
+            <input type="textoption" name="${option}" id="${option}" value="${globalData.addSlidesJsonData[questionId].options[option]}" />
+        </div>`;
+
+        document
+            .querySelector(".question_action--container .option_container")
+            .insertAdjacentHTML("beforeend", optionHtml);
+    }
+
     document
         .querySelector("#delete")
         .addEventListener("click", deleteSlide.bind(null, questionId), {
@@ -89,19 +85,30 @@ let send = (questionId, e) => {
 };
 
 let update = (questionId) => {
-    let allInputs = [
+    let inputFeilds = [
         ...document.querySelectorAll(
-            ".question_action--container input , textarea"
+            ".question_action--container textarea , input[type=number] , input[type=text]"
+        ),
+    ];
+    let options = [
+        ...document.querySelectorAll(
+            ".question_action--container input[type=textoption]"
         ),
     ];
 
-    allInputs.map((element) => {
+    inputFeilds.map((element) => {
         if (element.name === "question") {
             document.querySelector(
                 `.slide_question_id-${questionId}`
             ).innerHTML = element.value;
         }
         globalData.addSlidesJsonData[questionId][
+            element.name
+        ] = element.value.trim();
+    });
+
+    options.map((element) => {
+        globalData.addSlidesJsonData[questionId].options[
             element.name
         ] = element.value.trim();
     });

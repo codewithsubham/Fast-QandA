@@ -6,6 +6,7 @@ module.exports = class Question {
     #io;
     #room;
     #publishedData;
+
     constructor(io, room, data) {
         this.#io = io;
         this.#room = room;
@@ -13,7 +14,6 @@ module.exports = class Question {
         this.#timeOut = data.timeout;
         this.#publishedData = data;
         this.timerForEachQuestion(this.#timeOut);
-        console.log(data, "from constructor");
     }
     getQuestionObject() {
         return {
@@ -41,14 +41,9 @@ module.exports = class Question {
                 clearInterval(this.#timer);
             }
         }, 1000);
-
-        /* this.#timeOut = setTimeout(() => {
-            clearTimeout(this.#timeOut);
-        }, timePeriod * 1000);*/
     }
 
     deleteTimers() {
         clearInterval(this.#timer);
-        // clearTimeout(this.#timeOut);
     }
 };

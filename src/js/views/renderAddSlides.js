@@ -64,27 +64,47 @@ export const renderAddSlideForm = () => {
     document
         .querySelector(".slides_botton-add")
         .addEventListener("click", (e) => {
-            let tempObj = {};
-            let x = [
-                ...e.target.parentNode.parentNode.parentNode.querySelectorAll(
-                    ".slides input ,  textarea"
-                ),
+            let tempObj = { options: {} };
+            let textAreaValue = [
+                ...document
+                    .querySelector(".add_slides_form-container")
+                    .querySelectorAll(".slides textarea"),
             ];
-            tempObj["timeout"] = 30;
-            tempObj["questionid"] = id;
-            x.map((element) => {
+
+            let options = [
+                ...document
+                    .querySelector(".add_slides_form-container")
+                    .querySelectorAll(".slides input"),
+            ];
+            textAreaValue.map((element) => {
                 tempObj[element.name] = element.value.trim();
             });
+            let index = 0;
+            for (let element of options) {
+                if (index > 25) {
+                    return;
+                }
+                if (element.value.trim() == "") {
+                    continue;
+                }
+                tempObj.options[String.fromCharCode(index + 65)] =
+                    element.value;
+                ++index;
+            }
+
+            tempObj["timeout"] = 30;
+            tempObj["questionid"] = id;
             globalData.addSlidesJsonData[id] = tempObj;
+
             // renderSlide is function to add slides to page from addSlides Form
             if (renderSlide(id)) {
-                e.target.parentNode.parentNode.parentNode.remove();
+                document.querySelector(".add_slides_form-container").remove();
             }
         });
     document
         .querySelector(".slides_botton-close")
         .addEventListener("click", (e) => {
-            e.target.parentNode.parentNode.parentNode.remove();
+            document.querySelector(".add_slides_form-container").remove();
         });
     return;
 };
