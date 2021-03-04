@@ -1,6 +1,9 @@
 import { elements, functionName, globalData } from "./elements";
 
 export const renderQuestion = (data) => {
+    console.log(data, "from renderQuestion");
+    clearInterval(globalData.timer);
+    clearTimeout(globalData.timeOut);
     let element = `<div class="question_container-wrapper">
     <div class="question_container">
         <p>
@@ -47,16 +50,16 @@ let startTimer = (remainingTimeInSec) => {
     let currentTime = remainingTimeInSec;
 
     //alert(currentTime);
-    let timer = setInterval(() => {
+    globalData.timer = setInterval(() => {
         currentTime--;
         elements.timer.innerHTML = `${currentTime} sec`;
     }, 1000);
 
-    let timeOut = setTimeout(() => {
+    globalData.timeOut = setTimeout(() => {
         document.querySelector("#send").disabled = true;
         document.querySelector("#send").style.background = "#ccc";
         document.querySelector("#send").style.color = "#00000066";
-        clearInterval(timer);
-        clearTimeout(timeOut);
+        clearInterval(globalData.timer);
+        clearTimeout(globalData.timeOut);
     }, remainingTimeInSec * 1000);
 };

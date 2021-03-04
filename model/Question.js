@@ -1,33 +1,35 @@
 module.exports = class Question {
-    #questionID = "123123";
+    #questionid;
     #timer;
     #timeOut;
     #remainingTime;
     #io;
     #room;
-
+    #publishedData;
     constructor(io, room, data) {
         this.#io = io;
         this.#room = room;
-        this.timerForEachQuestion();
+        this.#questionid = data.questionid;
+        this.#timeOut = data.timeout;
+        this.#publishedData = data;
+        this.timerForEachQuestion(this.#timeOut);
+        console.log(data, "from constructor");
     }
     getQuestionObject() {
         return {
-            questionid: this.#questionID,
+            questionid: this.#questionid,
             remainingtime: this.#remainingTime,
             room: this.#room,
-            question:
-                "Which of the following is not a correct statement about Bitumen?",
+            question: this.#publishedData.question,
             options: {
-                a:
-                    "It’s a mixture of highly condensed polycyclic aromatic compounds",
-                b: "Its is soluble in Carbon Disulphide",
-                c: "SARA analysis is used to determine bitumen chemistry",
-                d: "All of above are correct statements",
+                A: this.#publishedData.A,
+                B: this.#publishedData.B,
+                C: this.#publishedData.C,
+                D: this.#publishedData.D,
             },
         };
     }
-    timerForEachQuestion(timePeriod = 50) {
+    timerForEachQuestion(timePeriod = 30) {
         this.#remainingTime = timePeriod;
 
         this.#timer = setInterval(() => {

@@ -5,7 +5,6 @@ import * as renderAddSlideForm from "./views/renderAddSlides";
 let socket;
 
 window.addEventListener("load", () => {
-    console.log("window loaded");
     initConnection();
     if (typeof userType != undefined) {
         if (userType === "responder") {
@@ -14,7 +13,7 @@ window.addEventListener("load", () => {
             document.querySelector(".main_container").style.display = "initial";
             document.querySelector(".teacher_maincontainer-holder").remove();
             document.querySelector("nav").style.display = "flex";
-
+            initResponder();
             return;
         }
         document.querySelector("nav").remove();
@@ -29,10 +28,9 @@ window.addEventListener("load", () => {
 let initConnection = () => {
     let st =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1YmhhbSIsInBhc3N3b3JkIjoiYXNkYXNkIiwiZW1haWwiOiJzdWJoYW1wcmFzYWQ1NTJAZ21haWwuY29tIiwicGhvbmUiOiI5MjA1NTQ2MTczIiwiaWF0IjoxNjE0MzIwNTA4LCJleHAiOjE2MTY5MTI1MDh9.2yi2VY_itNL-yS0m70oioB4IzFjDjUvIG1b-gQGZTXo";
-    let room = "room";
 
     socket = io(`${window.location.hostname}:3000`, {
-        query: { room: room, userType: "admin", details: st },
+        query: { room: room, userType: userType, details: st },
     });
 
     socket.on("connect", () => {
@@ -45,9 +43,13 @@ let initConnection = () => {
     socket.on("connect_error", (err) => {
         console.log(err.message); // prints the message associated with the error
     });
+};
+
+let initResponder = () => {
     socket.on(`${room}-receiveQuestion`, (data) => {
         startQuestion(data);
     });
+    return;
 };
 
 let initTeacherPanel = () => {
@@ -60,7 +62,6 @@ let initTeacherPanel = () => {
 };
 
 // render slides which was added using renderAddSlides
-
 // send answer for last question
 
 functionName.publishQuestion = (questionId) => {

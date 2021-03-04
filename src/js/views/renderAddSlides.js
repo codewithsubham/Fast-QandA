@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { renderSlide } from "./renderSlide";
 
 export const renderAddSlideForm = () => {
-    let id = uuidv4();
+    let id = `${room}_${uuidv4()}`;
     console.log("from add slided", id);
     let element = ` <div class="add_slides_form-container">
     <div class="add_slides-form">
@@ -71,7 +71,7 @@ export const renderAddSlideForm = () => {
                 ),
             ];
             tempObj["timeout"] = 30;
-
+            tempObj["questionid"] = id;
             x.map((element) => {
                 tempObj[element.name] = element.value.trim();
             });

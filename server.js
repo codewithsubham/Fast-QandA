@@ -27,7 +27,6 @@ io.use(function (socket, next) {
             socket.handshake.query.details,
             SECRET_KEY,
             (err, decoded) => {
-                console.log("code expired");
                 if (err) return next(new Error("Authentication failed"));
                 //socket decoded stores decoded data from jwt token
                 socket.decoded = decoded;
@@ -54,16 +53,30 @@ io.on("connection", (socket, err) => {
     if (userType === "admin") {
         socket.broadcast.to(room).emit(room, "teacher is online");
     }
-
+    if (userType === "responder") {
+        console.log("responder connected");
+        if (room in questionObject) {
+            io.to(room).emit(
+                `${room}-receiveQuestion`,
+                questionObject[room].getQuestionObject()
+            );
+        }
+    }
     //io.to(room).emit(room, "teacher is online");
     // send question to all student
 
     socket.on(`${room}-postQuestion`, (data) => {
+        if (room in questionObject) {
+            questionObject.room.deleteTimers();
+            delete questionObject.room;
+        }
         questionObject[room] = new Question(io, room, data);
+
         io.to(room).emit(
             `${room}-receiveQuestion`,
             questionObject[room].getQuestionObject()
         );
+        // questionObject.room.timerForEachQuestion();
     });
 
     // ${room}-receiveAnswer receive answer from all students
@@ -73,12 +86,6 @@ io.on("connection", (socket, err) => {
         // console.log(data + "from students from room" + room);
         // if any question has been posted the
         // then delete that previous object and also delete timer
-        if (room in questionObject) {
-            questionObject.room.deleteTimers();
-            delete questionObject.room;
-        }
-        questionObject.room = new Question(io, room);
-        questionObject.room.timerForEachQuestion();
     });
 
     // ${room}-postAnswerWithPoll will  answer the last question's with students poll
