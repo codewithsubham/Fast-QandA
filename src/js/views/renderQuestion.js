@@ -3,7 +3,6 @@ import { elements, functionName, globalData } from "./elements";
 export const renderQuestion = (data) => {
     console.log(data, "from renderQuestion");
     clearInterval(globalData.timer);
-    clearTimeout(globalData.timeOut);
     let element = `<div class="question_container-wrapper">
     <div class="question_container">
         <p>
@@ -36,7 +35,6 @@ export const renderQuestion = (data) => {
             .insertAdjacentHTML("beforebegin", optionsHTML);
     }
 
-    elements.timer = document.querySelector(".timer");
     globalData.lastSelected = undefined;
     document.querySelector("#send").addEventListener("click", () => {
         functionName.sendAnswer(123123);
@@ -47,19 +45,23 @@ export const renderQuestion = (data) => {
 };
 
 let startTimer = (remainingTimeInSec) => {
+    console.log(remainingTimeInSec, "time was given");
+    let timer = document.querySelector(".timer");
     let currentTime = remainingTimeInSec;
 
     //alert(currentTime);
     globalData.timer = setInterval(() => {
         currentTime--;
-        elements.timer.innerHTML = `${currentTime} sec`;
+        timer.innerHTML = `${currentTime} sec`;
+        if (currentTime <= 0) {
+            clearInterval(globalData.timer);
+            //clearTimeout(globalData.timeOut);
+            console.log(currentTime, "left time");
+            document.querySelector("#send").disabled = true;
+            document.querySelector("#send").style.background = "#ccc";
+            document.querySelector("#send").style.color = "#00000066";
+        }
     }, 1000);
 
-    globalData.timeOut = setTimeout(() => {
-        document.querySelector("#send").disabled = true;
-        document.querySelector("#send").style.background = "#ccc";
-        document.querySelector("#send").style.color = "#00000066";
-        clearInterval(globalData.timer);
-        clearTimeout(globalData.timeOut);
-    }, remainingTimeInSec * 1000);
+    // globalData.timeOut = setTimeout(() => {}, remainingTimeInSec * 1000);
 };

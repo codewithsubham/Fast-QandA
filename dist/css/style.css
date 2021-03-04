@@ -22,7 +22,7 @@ nav {
     width: 100%;
 }
 .main_container {
-    background: white;
+    background: var(--main-card-color);
     width: 70%;
     min-height: 55rem;
     position: absolute;

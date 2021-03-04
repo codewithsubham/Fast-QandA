@@ -47,6 +47,8 @@ let initConnection = () => {
 
 let initResponder = () => {
     socket.on(`${room}-receiveQuestion`, (data) => {
+        clearInterval(globalData.timer);
+        clearTimeout(globalData.timeOut);
         startQuestion(data);
     });
     return;
@@ -79,7 +81,6 @@ functionName.sendAnswer = (questionId) => {
                     .value.toUpperCase()
                     .trim()
             ) {
-                console.log("answer is same");
                 return;
             }
         }

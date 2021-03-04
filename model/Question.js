@@ -35,18 +35,20 @@ module.exports = class Question {
         this.#timer = setInterval(() => {
             console.log(this.#remainingTime);
             this.#remainingTime--;
+            if (this.#remainingTime <= 0) {
+                console.log("Clearing", this.#remainingTime);
+                this.#remainingTime = 0;
+                clearInterval(this.#timer);
+            }
         }, 1000);
 
-        this.#timeOut = setTimeout(() => {
-            console.log("Clearing");
-            this.#remainingTime = 0;
-            clearInterval(this.#timer);
+        /* this.#timeOut = setTimeout(() => {
             clearTimeout(this.#timeOut);
-        }, timePeriod * 1000);
+        }, timePeriod * 1000);*/
     }
 
     deleteTimers() {
         clearInterval(this.#timer);
-        clearTimeout(this.#timeOut);
+        // clearTimeout(this.#timeOut);
     }
 };
