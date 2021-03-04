@@ -528,3 +528,20 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
+
+.section_2 .last_question_poll {
+    width: 100%;
+    min-height: 50%;
+    background-color: var(--main-card-color);
+    margin-bottom: 1rem;
+}
+
+.last_question_poll .option_progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.last_question_poll .option_container {
+    margin: 0;
+}

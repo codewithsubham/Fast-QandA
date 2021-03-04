@@ -89,6 +89,7 @@ let close = () => {
 };
 let send = (questionId, e) => {
     update(questionId);
+    renderEditSlideForm(questionId);
     functionName.publishQuestion(questionId);
 };
 
