@@ -34,8 +34,9 @@ export const renderQuestion = (data) => {
     }
 
     elements.timer = document.querySelector(".timer");
+    globalData.lastSelected = undefined;
     document.querySelector("#send").addEventListener("click", () => {
-        functionName.sendAnswer();
+        functionName.sendAnswer(123123);
         return;
     });
 
@@ -48,8 +49,6 @@ let startTimer = (remainingTimeInSec) => {
     //alert(currentTime);
     let timer = setInterval(() => {
         currentTime--;
-        console.log(currentTime);
-        console.log(elements.timer);
         elements.timer.innerHTML = `${currentTime} sec`;
     }, 1000);
 

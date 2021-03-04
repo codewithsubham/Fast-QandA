@@ -10,11 +10,15 @@ window.addEventListener("load", () => {
     if (typeof userType != undefined) {
         if (userType === "responder") {
             // render for responder
-            socket.on("test", (data) => {
-                startQuestion(data);
-            });
+
+            document.querySelector(".main_container").style.display = "initial";
+            document.querySelector(".teacher_maincontainer-holder").remove();
+            document.querySelector("nav").style.display = "flex";
+
             return;
         }
+        document.querySelector("nav").remove();
+        document.querySelector(".main_container").remove();
 
         initTeacherPanel();
 
@@ -41,6 +45,9 @@ let initConnection = () => {
     socket.on("connect_error", (err) => {
         console.log(err.message); // prints the message associated with the error
     });
+    socket.on(`${room}-receiveQuestion`, (data) => {
+        startQuestion(data);
+    });
 };
 
 let initTeacherPanel = () => {
@@ -61,19 +68,38 @@ functionName.publishQuestion = (questionId) => {
     socket.emit("room-postQuestion", globalData.addSlidesJsonData[questionId]);
 };
 
-functionName.sendAnswer = (value) => {
-    console.log(
-        document
+functionName.sendAnswer = (questionId) => {
+    if (document.querySelector("input[name=radio]:checked")) {
+        if (globalData.lastSelected) {
+            if (
+                globalData.lastSelected ===
+                document
+                    .querySelector("input[name=radio]:checked")
+                    .value.toUpperCase()
+                    .trim()
+            ) {
+                console.log("answer is same");
+                return;
+            }
+        }
+        console.log({
+            questionId,
+            decrement: globalData.lastSelected
+                ? globalData.lastSelected
+                : false,
+            increment: document
+                .querySelector("input[name=radio]:checked")
+                .value.toUpperCase()
+                .trim(),
+        });
+        globalData.lastSelected = document
             .querySelector("input[name=radio]:checked")
-            .getAttribute("questionid")
-    );
+            .value.toUpperCase()
+            .trim();
+        return;
+    }
+
     return;
-    document.querySelector(".container").innerHTML = `
-    <iframe
-    width="600"
-    src="https://www.youtube.com/embed/QmdZmUoM6GQ?rel=0&showinfo=0&controls=1&autoplay=true&fullscreen=0&Settings=0"
-    frameborder="0"
-></iframe>`;
 
     // socket.emit(`${room}-receiveAnsWer`, { id: value });
 };
