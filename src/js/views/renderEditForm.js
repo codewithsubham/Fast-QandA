@@ -27,6 +27,11 @@ export const renderEditSlideForm = (questionId) => {
                 <use xlink:href="img/svg/sprite.svg#icon-send" ></use>
             </svg>
         </button>
+        <button id="addoptions" >
+        <svg class="create_icon location_icon">
+            <use xlink:href="img/svg/sprite.svg#icon-add"></use>
+        </svg>
+    </button>
         <button id="update" >
             <svg class="create_icon location_icon">
                 <use xlink:href="img/svg/sprite.svg#icon-update"></use>
@@ -42,6 +47,7 @@ export const renderEditSlideForm = (questionId) => {
                 <use xlink:href="img/svg/sprite.svg#icon-close"></use>
             </svg>
         </button>
+      
     </div>
 </div>`;
     elements.edit_form.innerHTML = element;
@@ -70,6 +76,7 @@ export const renderEditSlideForm = (questionId) => {
     document
         .querySelector("#close")
         .addEventListener("click", close, { once: true });
+    document.querySelector("#addoptions").addEventListener("click", addoption);
     return;
 };
 
@@ -81,6 +88,7 @@ let close = () => {
     document.querySelector(".question_action--container").remove();
 };
 let send = (questionId, e) => {
+    update(questionId);
     functionName.publishQuestion(questionId);
 };
 
@@ -107,9 +115,28 @@ let update = (questionId) => {
         ] = element.value.trim();
     });
 
-    options.map((element) => {
-        globalData.addSlidesJsonData[questionId].options[
-            element.name
-        ] = element.value.trim();
-    });
+    let index = 0;
+    let optionsObj = {};
+    for (let element of options) {
+        if (index > 25) {
+            return;
+        }
+        if (element.value.trim() == "") {
+            continue;
+        }
+        optionsObj[String.fromCharCode(index + 65)] = element.value.trim();
+        ++index;
+    }
+    globalData.addSlidesJsonData[questionId].options = optionsObj;
+
+    console.log(globalData.addSlidesJsonData[questionId]);
+};
+
+let addoption = () => {
+    let inputHtml = `<div class="inputGroup-toolbar">
+    <input type="textoption"  value="" />
+</div>`;
+    document
+        .querySelector(".question_action--container .option_container")
+        .insertAdjacentHTML("beforeend", inputHtml);
 };

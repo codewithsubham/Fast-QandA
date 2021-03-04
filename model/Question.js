@@ -21,12 +21,7 @@ module.exports = class Question {
             remainingtime: this.#remainingTime,
             room: this.#room,
             question: this.#publishedData.question,
-            options: {
-                A: this.#publishedData.A,
-                B: this.#publishedData.B,
-                C: this.#publishedData.C,
-                D: this.#publishedData.D,
-            },
+            options: this.#publishedData.options,
         };
     }
     timerForEachQuestion(timePeriod = 30) {
