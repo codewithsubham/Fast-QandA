@@ -6,6 +6,7 @@ module.exports = class Question {
     #io;
     #room;
     #publishedData;
+    #answerPoll = {};
 
     constructor(io, room, data) {
         this.#io = io;
@@ -23,6 +24,24 @@ module.exports = class Question {
             question: this.#publishedData.question,
             options: this.#publishedData.options,
         };
+    }
+    setpublishedData(answer) {
+        if (answer["decrement"]) {
+            this.#answerPoll[answer["decrement"]]--;
+        }
+        if (!this.#answerPoll[answer["increment"]]) {
+            this.#answerPoll[answer["increment"]] = 1;
+            console.log(this.#answerPoll, "published data");
+            this.#io
+                .to(this.#room)
+                .emit(`${this.#room}-livePolling`, this.#answerPoll);
+            return;
+        }
+
+        this.#answerPoll[answer["increment"]]++;
+        this.#io
+            .to(this.#room)
+            .emit(`${this.#room}-livePolling`, this.#answerPoll);
     }
     timerForEachQuestion(timePeriod = 30) {
         this.#remainingTime = timePeriod;

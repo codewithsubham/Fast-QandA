@@ -51,6 +51,7 @@ let initResponder = () => {
         clearTimeout(globalData.timeOut);
         startQuestion(data);
     });
+
     return;
 };
 
@@ -60,6 +61,10 @@ let initTeacherPanel = () => {
         renderAddSlideForm.renderAddSlideForm();
         return;
         // open a model to add slides
+    });
+
+    socket.on(`${room}-livePolling`, (data) => {
+        console.log(data, "live polling");
     });
 };
 
@@ -84,7 +89,7 @@ functionName.sendAnswer = (questionId) => {
                 return;
             }
         }
-        console.log({
+        let answerObj = {
             questionId,
             decrement: globalData.lastSelected
                 ? globalData.lastSelected
@@ -93,7 +98,10 @@ functionName.sendAnswer = (questionId) => {
                 .querySelector("input[name=radio]:checked")
                 .value.toUpperCase()
                 .trim(),
-        });
+        };
+
+        socket.emit(`${room}-receiveAnsWer`, answerObj);
+
         globalData.lastSelected = document
             .querySelector("input[name=radio]:checked")
             .value.toUpperCase()
@@ -102,8 +110,6 @@ functionName.sendAnswer = (questionId) => {
     }
 
     return;
-
-    // socket.emit(`${room}-receiveAnsWer`, { id: value });
 };
 
 let startQuestion = (data) => {

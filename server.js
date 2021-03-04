@@ -71,7 +71,6 @@ io.on("connection", (socket, err) => {
             delete questionObject.room;
         }
         questionObject[room] = new Question(io, room, data);
-
         io.to(room).emit(
             `${room}-receiveQuestion`,
             questionObject[room].getQuestionObject()
@@ -81,6 +80,9 @@ io.on("connection", (socket, err) => {
 
     // ${room}-receiveAnswer receive answer from all students
     socket.on(`${room}-receiveAnsWer`, (data) => {
+        console.log(data);
+
+        questionObject[room].setpublishedData(data);
         // total all the number answer and broadcast to every on
         //store the data
         // console.log(data + "from students from room" + room);
