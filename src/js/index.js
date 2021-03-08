@@ -2,11 +2,13 @@ import * as renderQuestion from "./views/renderQuestion";
 import { elements, functionName, globalData } from "./views/elements";
 import * as renderAddSlideForm from "./views/renderAddSlides";
 import { renderPollScreen } from "./views/renderPollScreen";
+import { renderActivePollResult } from "./views/renderActivePollResult";
 
 let socket;
 
 window.addEventListener("load", () => {
     initConnection();
+
     if (typeof userType != undefined) {
         if (userType === "responder") {
             // render for responder
@@ -65,7 +67,7 @@ let initTeacherPanel = () => {
     });
 
     socket.on(`${room}-livePolling`, (data) => {
-        console.log(data, "live polling");
+        renderActivePollResult(data);
     });
 };
 

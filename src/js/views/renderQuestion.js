@@ -50,18 +50,27 @@ let startTimer = (remainingTimeInSec) => {
     let currentTime = remainingTimeInSec;
 
     //alert(currentTime);
-    globalData.timer = setInterval(() => {
-        currentTime--;
-        timer.innerHTML = `${currentTime} sec`;
-        if (currentTime <= 0) {
-            clearInterval(globalData.timer);
-            //clearTimeout(globalData.timeOut);
-            console.log(currentTime, "left time");
-            document.querySelector("#send").disabled = true;
-            document.querySelector("#send").style.background = "#ccc";
-            document.querySelector("#send").style.color = "#00000066";
-        }
-    }, 1000);
+    if (remainingTimeInSec > 0) {
+        globalData.timer = setInterval(() => {
+            if (currentTime == 0) {
+                clearInterval(globalData.timer);
+                //clearTimeout(globalData.timeOut);
+                console.log(currentTime, "left time");
+                document.querySelector("#send").disabled = true;
+                document.querySelector("#send").style.background = "#ccc";
+                document.querySelector("#send").style.color = "#00000066";
+                timer.innerHTML = `${currentTime} sec`;
+                return;
+            }
+            currentTime--;
+            timer.innerHTML = `${currentTime} sec`;
+        }, 1000);
 
+        return;
+    }
+
+    document.querySelector("#send").disabled = true;
+    document.querySelector("#send").style.background = "#ccc";
+    document.querySelector("#send").style.color = "#00000066";
     // globalData.timeOut = setTimeout(() => {}, remainingTimeInSec * 1000);
 };

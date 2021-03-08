@@ -2,7 +2,7 @@ import { elements, globalData, functionName } from "./elements";
 
 let renderOptions = (option) => {
     let optionElement = ` <div class="option_progress">
-<div class="option_container" id="${option}_percent">${option}</div>
+<div class="option_container" id="${option}_percent">0%</div>
 <div class="progress-container">
     <div id="${option}_bar"
         class="progress"

@@ -15,7 +15,7 @@
     "scripts": {
         "dev": "webpack --mode development",
         "build": "webpack --mode production",
-        "start": "webpack-dev-server --mode development --open"
+        "start": "webpack-dev-server  --host 0.0.0.0 --mode development --open "
     },
     "devDependencies": {
         "webpack": "^4.29.5",
