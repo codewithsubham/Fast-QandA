@@ -4,6 +4,7 @@ export const elements = {
     section_1: document.querySelector(".section_1"),
     edit_form: document.querySelector(".form_question_holder"),
     slides_holder: document.querySelector(".slides_holder"),
+    poll_holder: document.querySelector(".poll_holder"),
 };
 
 export const functionName = {};

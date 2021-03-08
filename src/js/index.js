@@ -1,6 +1,7 @@
 import * as renderQuestion from "./views/renderQuestion";
 import { elements, functionName, globalData } from "./views/elements";
 import * as renderAddSlideForm from "./views/renderAddSlides";
+import { renderPollScreen } from "./views/renderPollScreen";
 
 let socket;
 
@@ -74,6 +75,7 @@ let initTeacherPanel = () => {
 functionName.publishQuestion = (questionId) => {
     console.log("from publish function", questionId);
     socket.emit("room-postQuestion", globalData.addSlidesJsonData[questionId]);
+    renderPollScreen(questionId);
 };
 
 functionName.sendAnswer = (questionId) => {
