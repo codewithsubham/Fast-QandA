@@ -7,6 +7,7 @@ module.exports = class Question {
     #room;
     #publishedData;
     #answerPoll = {};
+    #isCompleted = false;
 
     constructor(io, room, data) {
         this.#io = io;
@@ -17,21 +18,27 @@ module.exports = class Question {
         this.timerForEachQuestion(this.#timeOut);
     }
     getQuestionObject() {
-        return {
-            questionid: this.#questionid,
-            remainingtime: this.#remainingTime,
-            room: this.#room,
-            question: this.#publishedData.question,
-            options: this.#publishedData.options,
-        };
+        if (!this.#isCompleted) {
+            return {
+                isCompleted: this.#isCompleted,
+                questionid: this.#questionid,
+                remainingtime: this.#remainingTime,
+                room: this.#room,
+                question: this.#publishedData.question,
+                options: this.#publishedData.options,
+            };
+        }
+        return (this.#answerPoll["isCompleted"] = this.#isCompleted);
     }
     setpublishedData(answer) {
+        if (this.#isCompleted) {
+            return;
+        }
         if (answer["decrement"]) {
             this.#answerPoll[answer["decrement"]]--;
         }
         if (!this.#answerPoll[answer["increment"]]) {
             this.#answerPoll[answer["increment"]] = 1;
-            console.log(this.#answerPoll, "published data");
             this.#io
                 .to(this.#room)
                 .emit(`${this.#room}-livePolling`, this.#answerPoll);
@@ -49,9 +56,9 @@ module.exports = class Question {
         this.#timer = setInterval(() => {
             console.log(this.#remainingTime);
             this.#remainingTime--;
-            if (this.#remainingTime <= 0) {
-                console.log("Clearing", this.#remainingTime);
+            if (this.#remainingTime == 0) {
                 this.#remainingTime = 0;
+                this.#isCompleted = true;
                 clearInterval(this.#timer);
             }
         }, 1000);

@@ -117,6 +117,7 @@ functionName.sendAnswer = (questionId) => {
 };
 
 let startQuestion = (data) => {
+    console.log(data);
     renderQuestion.renderQuestion(data, socket);
 };
 
