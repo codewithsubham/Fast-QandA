@@ -18,7 +18,7 @@ export const renderEditSlideForm = (questionId) => {
         </div>
     </div>
 
-    <div class="option_container">
+    <div class="option_container ">
         ${mediaSourceElement}
         <select id="answer_selector">
         <option value="" selected disabled>Update answer</option>
