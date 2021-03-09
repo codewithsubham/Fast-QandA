@@ -1,17 +1,19 @@
 :root {
     --main-font: "Noto Sans JP", sans-serif;
     --main-background-color: #2b2e43; /*#45a18c;*/
-    --secondary-color: #4fb5a4;
+    --secondary-color: #00cd69;
     --primary-yellow: #fde387;
-    --text-color: #414141;
+    --text-color: #fff;
     --nav-height: 15rem;
     --main-card-color: #2f3247;
+    --third_main_color: #272a3e;
+    --svg-color: #fff;
 }
 
 html,
 body {
     font-family: var(--main-font);
-    background-color: var(--main-background-color); /*  #45a18c; */
+    background-color: var(--third_main_color); /*  #45a18c; */
 }
 nav {
     position: relative;
@@ -33,7 +35,6 @@ nav {
 }
 .main_container .question_container {
     width: 95%;
-    background-color: #fde387;
     margin: 0 auto;
     min-height: 15rem;
     border-radius: 4px;
@@ -80,12 +81,11 @@ nav .logo-container {
 .question_container .timer {
     width: 8rem;
     height: 8rem;
-    background: white;
+    background: var(--third_main_color);
     position: absolute;
     left: 50%;
     transform: translate(-50%);
     border-radius: 100%;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -136,6 +136,7 @@ nav .logo-container {
     font-weight: 600;
     color: var(--text-color);
     margin-bottom: 0.5rem;
+    border-radius: 10rem;
 }
 .inputGroup label {
     padding: 12px 30px;
@@ -154,14 +155,17 @@ nav .logo-container {
     width: 100%;
     display: block;
     text-align: left;
-    color: #3c454c;
+    color: var(--svg-color);
     line-height: 1.7;
-    border: none;
+    border-radius: 1rem;
     font-weight: 600;
     overflow: hidden;
     cursor: initial;
     font-family: inherit;
+    border: none;
+    background-color: var(--third_main_color);
 }
+
 .inputGroup label:before {
     width: 10px;
     height: 10px;
@@ -238,10 +242,48 @@ code {
 .teacher_maincontainer-holder .section_1 .add_slides_form-container {
     width: 95%;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 0.5rem 1rem 2rem;
     background-color: var(--main-card-color);
     margin-bottom: 5px;
     border-radius: 2px;
+    box-shadow: 0px 0px 4px 1px rgb(0 0 0 / 10%);
+    border-radius: 4px;
+}
+.teacher_maincontainer-holder .section_1 .add_slides_form-container header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.teacher_maincontainer-holder .section_1 .add_slides_form-container p {
+    padding-left: 1rem;
+    font-size: 2rem;
+    color: #00cd69;
+    font-weight: 900;
+}
+.teacher_maincontainer-holder
+    .section_1
+    .add_slides_form-container
+    header
+    button
+    svg {
+    fill: #ebeeff;
+}
+button > * {
+    pointer-events: none;
+}
+.teacher_maincontainer-holder
+    .section_1
+    .add_slides_form-container
+    header
+    button {
+    background: none;
+    box-shadow: none;
+    border: none;
+    width: fit-content;
+    height: fit-content;
 }
 .teacher_maincontainer-holder .section_1 .add_slides_form-container input {
     display: block;
@@ -255,9 +297,9 @@ code {
 }
 .teacher_maincontainer-holder .section_1 .add_slides_form-container input {
     margin-bottom: 1rem;
-    background-color: var(--main-card-color);
+    background-color: var(--third_main_color);
 
-    border: 2px solid var(--main-background-color);
+    border: none;
 }
 
 .label_position {
@@ -277,7 +319,7 @@ code {
 }
 ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: var(--main-background-color);
+    color: var(--text-color);
     font-weight: 600;
     text-transform: capitalize;
     opacity: 1; /* Firefox */
@@ -285,7 +327,7 @@ code {
 .teacher_maincontainer-holder .section_1 .add_slides_form-container textarea {
     display: block;
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 1.5rem 2rem 0;
     border-radius: 3px;
     font-family: inherit;
     font-size: 1.2rem;
@@ -295,9 +337,9 @@ code {
     color: var(--text-color);
     font-style: inherit;
     align-items: center;
-    border: 2px solid var(--main-background-color);
+    border: none;
     position: relative;
-    background-color: var(--main-card-color);
+    background-color: var(--third_main_color);
 }
 
 .form_slides-question-container {
@@ -330,7 +372,8 @@ code {
     align-items: center;
     width: 80%;
     margin: 0 auto;
-    border-radius: 2px;
+    box-shadow: 0px 0px 4px 1px rgb(0 0 0 / 10%);
+    border-radius: 4px;
 }
 
 .teacher_maincontainer-holder .section_3 .tools_container .add_slides {
@@ -395,7 +438,9 @@ code {
     padding: 1rem 2rem;
     display: flex;
     color: var(--text-color);
-    background-color: #fff;
+    background-color: var(--main-card-color);
+
+    box-shadow: 0px 0px 4px 1px rgb(0 0 0 / 10%);
 }
 .slides_holder .question #play_slides,
 #edit_slides {
@@ -406,13 +451,12 @@ code {
 }
 .slides_holder .question #play_slides,
 #edit_slides svg {
-    fill: var(--main-background-color);
+    fill: var(--svg-color);
 }
 
-.slides_botton-add,
-.slides_botton-close {
+.slides_botton-add {
     border: 2px solid var(--main-background-color);
-    background: var(--main-background-color);
+    background: var(--secondary-color);
     padding: 1rem 1.2rem;
     color: white;
     font-family: inherit;
@@ -435,11 +479,12 @@ code {
     height: auto;
     border-radius: 2px;
     padding: 1rem 0;
+    margin-bottom: 1rem;
+    box-shadow: 0px 0px 4px 1px rgb(0 0 0 / 10%);
 }
 
 .question_action--container .question_container {
     width: 95%;
-    background-color: #fde387;
     margin: 0 auto;
     border-radius: 4px;
     font-size: 2rem;
@@ -458,8 +503,8 @@ code {
     border: none;
     text-align: center;
     font-size: 2rem;
-    font-weight: 600;
-    color: #3c454c;
+    font-weight: 900;
+    color: var(--secondary-color);
     font-family: inherit;
 }
 .question_action--container .question_container-wrapper {
@@ -479,10 +524,11 @@ code {
     font-family: inherit;
     font-weight: 600;
     text-align: center;
-    background: var(--primary-yellow);
+    background: var(--third_main_color);
     padding: 1rem 3rem;
     color: var(--main-font);
     font-size: 1.5rem;
+    border-radius: 1rem;
 }
 .question_action--container .button_container {
     margin-top: 1.5rem;
@@ -493,11 +539,11 @@ code {
     border-top-left-radius: 6rem;
     border-bottom-right-radius: 6rem;
     border-bottom-left-radius: 6rem;
-    background-color: var(--main-background-color);
+    background-color: var(--third_main_color);
 }
-.question_action--container .button_container svg:hover {
+.question_action--container .button_container button:hover svg {
     transform: scale(1.2);
-    fill: var(--primary-yellow);
+    fill: var(--secondary-color);
 }
 .question_action--container .button_container svg {
     display: flex;
@@ -505,7 +551,7 @@ code {
     align-items: center;
     height: 2.5rem;
     width: 2.5rem;
-    fill: var(--main-card-color);
+    fill: var(--svg-color);
     transition: all ease 100ms;
 }
 .question_action--container button {
@@ -544,10 +590,10 @@ input::-webkit-inner-spin-button {
 }
 
 .last_question_poll .header_holder {
-    color: white;
+    color: var(--svg-color);
     font-size: 1.8rem;
     font-weight: 700;
-
+    text-align: center;
     padding: 2rem;
 }
 .progress-container {

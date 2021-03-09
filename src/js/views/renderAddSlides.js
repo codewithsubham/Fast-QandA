@@ -5,29 +5,31 @@ import { renderSlide } from "./renderSlide";
 
 export const renderAddSlideForm = () => {
     let id = `${room}_${uuidv4()}`;
-    console.log("from add slided", id);
-    let element = ` <div class="add_slides_form-container">
+    let element = ` <div class="add_slides_form-container"><header>
+    <p>Add Slide</p>
+    <button id="save_slides" class="slides_botton-close">
+        <svg class="create_icon location_icon">
+            <use xlink:href="img/svg/sprite.svg#icon-close"></use>
+        </svg>
+    </button>
+</header>
     <div class="add_slides-form">
         <div class="slides">
             <div class="form_slides-question-container">
-                <div class="label label_position">
-                    <label for="question_1">media source</label>
-                </div>
                 <textarea
                     type="text"
                     name="media_source"
                     id="media_source"
                     style="resize: none"
+                    placeholder="Media source if available"
                 ></textarea>
             </div>
             <div class="form_slides-question-container">
-                <div class="label label_position">
-                    <label for="question_1">Question</label>
-                </div>
                 <textarea
                     id="question_1"
                     name="question"
                     style="resize: none"
+                    placeholder="write your question"
                 ></textarea>
             </div>
             <div class="form_slides-option-container">
@@ -55,7 +57,7 @@ export const renderAddSlideForm = () => {
         </div>
         <div class="form_button">
             <button id="save_slides" class="slides_botton-add" >Add</button>
-            <button id="save_slides" class="slides_botton-close" >Close</button>
+            
         </div>
        
     </div>
@@ -98,13 +100,16 @@ export const renderAddSlideForm = () => {
 
             // renderSlide is function to add slides to page from addSlides Form
             if (renderSlide(id)) {
-                document.querySelector(".add_slides_form-container").remove();
+                e.target.parentNode.parentNode.parentNode.remove();
             }
         });
-    document
-        .querySelector(".slides_botton-close")
-        .addEventListener("click", (e) => {
-            document.querySelector(".add_slides_form-container").remove();
-        });
+    document.querySelector(".slides_botton-close , svg").addEventListener(
+        "click",
+        (e) => {
+            console.log(e.target, e.target.parentNode.parentNode.parentNode);
+            e.target.parentNode.parentNode.remove();
+        },
+        true
+    );
     return;
 };
