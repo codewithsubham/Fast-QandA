@@ -1,4 +1,5 @@
 import { elements, globalData, functionName } from "./elements";
+import { renderSelectAnswer } from "./renderSelectAnswer";
 
 export const renderEditSlideForm = (questionId) => {
     let mediaSourceElement = "";
@@ -19,8 +20,12 @@ export const renderEditSlideForm = (questionId) => {
 
     <div class="option_container">
         ${mediaSourceElement}
-        
+        <select id="answer_selector">
+        <option value="" selected disabled>Update answer</option>
+        </select>  
     </div>
+
+    
     <div class="button_container">
         <button id="send" >
             <svg  class="create_icon location_icon">
@@ -56,10 +61,30 @@ export const renderEditSlideForm = (questionId) => {
             <input type="textoption" name="${option}" id="${option}" value="${globalData.addSlidesJsonData[questionId].options[option]}" />
         </div>`;
 
+        let optionElement;
         document
             .querySelector(".question_action--container .option_container")
             .insertAdjacentHTML("beforeend", optionHtml);
+
+        if (option === globalData.addSlidesJsonData[questionId].answer) {
+            optionElement = `<option value="${option}" selected >${option} is the answer</option>`;
+        } else {
+            optionElement = `<option value="${option}" >${option} is the answer</option>`;
+        }
+        document
+            .querySelector("#answer_selector")
+            .insertAdjacentHTML("beforeend", optionElement);
     }
+
+    document
+        .querySelector("#answer_selector")
+        .addEventListener("focus", (e) => {
+            renderSelectAnswer(
+                e,
+                ".question_action--container input[type=textoption]",
+                globalData.addSlidesJsonData[questionId].answer
+            );
+        });
 
     document
         .querySelector("#delete")
@@ -118,6 +143,7 @@ let update = (questionId) => {
 
     let index = 0;
     let optionsObj = {};
+
     for (let element of options) {
         if (index > 25) {
             return;
@@ -129,8 +155,12 @@ let update = (questionId) => {
         ++index;
     }
     globalData.addSlidesJsonData[questionId].options = optionsObj;
+    globalData.addSlidesJsonData[questionId].answer = document.querySelector(
+        ".option_container select"
+    ).value;
 
-    console.log(globalData.addSlidesJsonData[questionId]);
+    console.log(globalData.addSlidesJsonData[questionId], "from update");
+    renderEditSlideForm(questionId);
 };
 
 let addoption = () => {

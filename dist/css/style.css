@@ -72,6 +72,11 @@ nav .logo-container {
     margin-top: 2rem;
 }
 
+.question_action--container .option_container #answer_selector {
+    width: 80%;
+    margin: 1rem auto;
+    color: var(--secondary-color);
+}
 .question_container-wrapper {
     margin-bottom: 5rem;
 }
@@ -130,7 +135,7 @@ nav .logo-container {
     margin: 10px 0;
     position: relative;
     margin: 0 auto;
-    background-color: white;
+
     font-style: inherit;
     font-size: 1.4rem;
     font-weight: 600;
@@ -150,7 +155,8 @@ nav .logo-container {
     transition: color 100ms ease-in;
     overflow: hidden;
 }
-.inputGroup-toolbar input {
+.inputGroup-toolbar input,
+select {
     padding: 12px 30px;
     width: 100%;
     display: block;
@@ -285,8 +291,21 @@ button > * {
     width: fit-content;
     height: fit-content;
 }
-.teacher_maincontainer-holder .section_1 .add_slides_form-container input,
-select {
+.teacher_maincontainer-holder .section_1 .add_slides_form-container select {
+    display: block;
+    width: 100%;
+    padding: 1rem 2rem;
+    border: 1px solid #80868b;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    background-color: var(--third_main_color);
+    color: var(--svg-color);
+    border: none;
+}
+.teacher_maincontainer-holder .section_1 .add_slides_form-container input {
     display: block;
     width: 100%;
     padding: 1rem 2rem;

@@ -73,12 +73,12 @@ export const renderAddSlideForm = () => {
             e.target.innerHTML = "";
             e.target.insertAdjacentHTML(
                 "afterbegin",
-                `<option value="" disabled selected>Select your option</option>`
+                `<option value="false" disabled selected>Select your option</option>`
             );
             let index = 0;
-            for (let element of document
-                .querySelector(".add_slides_form-container")
-                .querySelectorAll(".slides input")) {
+            for (let element of e.target.parentNode.querySelectorAll(
+                ".slides input"
+            )) {
                 if (index > 25) {
                     return;
                 }
@@ -86,12 +86,11 @@ export const renderAddSlideForm = () => {
                     continue;
                 }
 
-                console.log(e.target);
                 e.target.insertAdjacentHTML(
                     "beforeend",
-                    `<option value="volvo">${String.fromCharCode(
+                    `<option value="${String.fromCharCode(
                         index + 65
-                    )}</option>`
+                    )}">${String.fromCharCode(index + 65)}</option>`
                 );
 
                 ++index;
@@ -131,14 +130,20 @@ export const renderAddSlideForm = () => {
 
             tempObj["timeout"] = 30;
             tempObj["questionid"] = id;
+            tempObj["answer"] = document.querySelector(
+                ".add_slides_form-container select"
+            ).value;
+
             globalData.addSlidesJsonData[id] = tempObj;
 
             // renderSlide is function to add slides to page from addSlides Form
             if (renderSlide(id)) {
+                console.log(globalData.addSlidesJsonData[id], "checking");
                 e.target.parentNode.parentNode.parentNode.remove();
             }
         });
-    document.querySelector(".slides_botton-close , svg").addEventListener(
+
+    document.querySelector(".slides_botton-close").addEventListener(
         "click",
         (e) => {
             console.log(e.target, e.target.parentNode.parentNode.parentNode);
