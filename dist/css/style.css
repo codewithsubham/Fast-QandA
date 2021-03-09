@@ -285,20 +285,19 @@ button > * {
     width: fit-content;
     height: fit-content;
 }
-.teacher_maincontainer-holder .section_1 .add_slides_form-container input {
+.teacher_maincontainer-holder .section_1 .add_slides_form-container input,
+select {
     display: block;
-    width: 100%;
     width: 100%;
     padding: 1rem 2rem;
     border: 1px solid #80868b;
     border-radius: 3px;
     font-family: inherit;
     font-size: 1.2rem;
-}
-.teacher_maincontainer-holder .section_1 .add_slides_form-container input {
+    font-weight: 600;
     margin-bottom: 1rem;
     background-color: var(--third_main_color);
-
+    color: var(--svg-color);
     border: none;
 }
 

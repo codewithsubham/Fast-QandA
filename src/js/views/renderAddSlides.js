@@ -53,6 +53,9 @@ export const renderAddSlideForm = () => {
                     name="D"
                     placeholder="option D"
                 />
+                <select id="options_selector">
+                     <option value="" disabled selected>Please provide ans *</option>
+                </select>
             </div>
         </div>
         <div class="form_button">
@@ -63,6 +66,38 @@ export const renderAddSlideForm = () => {
     </div>
 </div>`;
     elements.section_1.insertAdjacentHTML("afterbegin", element);
+
+    document
+        .querySelector("#options_selector")
+        .addEventListener("focus", (e) => {
+            e.target.innerHTML = "";
+            e.target.insertAdjacentHTML(
+                "afterbegin",
+                `<option value="" disabled selected>Select your option</option>`
+            );
+            let index = 0;
+            for (let element of document
+                .querySelector(".add_slides_form-container")
+                .querySelectorAll(".slides input")) {
+                if (index > 25) {
+                    return;
+                }
+                if (element.value.trim() == "") {
+                    continue;
+                }
+
+                console.log(e.target);
+                e.target.insertAdjacentHTML(
+                    "beforeend",
+                    `<option value="volvo">${String.fromCharCode(
+                        index + 65
+                    )}</option>`
+                );
+
+                ++index;
+            }
+        });
+
     document
         .querySelector(".slides_botton-add")
         .addEventListener("click", (e) => {
@@ -111,5 +146,9 @@ export const renderAddSlideForm = () => {
         },
         true
     );
+
+    document.querySelector("input").addEventListener("change", (e) => {
+        console.log(e.target);
+    });
     return;
 };
