@@ -8,12 +8,16 @@
     --main-card-color: #2f3247;
     --third_main_color: #272a3e;
     --svg-color: #fff;
+
+    --student-background-color: #45a18c;
+    --student-secondary-color: #4fb5a4;
+    --primary-yellow: #fde387;
+    --student-text-color: #414141;
 }
 
 html,
 body {
     font-family: var(--main-font);
-    background-color: var(--third_main_color); /*  #45a18c; */
 }
 nav {
     position: relative;
@@ -23,7 +27,7 @@ nav {
     width: 100%;
 }
 .main_container {
-    background: var(--main-card-color);
+    background: var(--svg-color);
     width: 70%;
     min-height: 55rem;
     position: absolute;
@@ -33,6 +37,60 @@ nav {
     border-radius: 4px;
     padding: 2rem 0;
 }
+
+.main_container .poll_holder .last_question_poll .question_container {
+    display: flex;
+    align-items: center;
+    color: var(--student-text-color);
+    margin-bottom: 5rem;
+    font-weight: 500;
+    font-size: 1.8rem;
+}
+
+.main_container .poll_holder .last_question_poll .question_container p {
+    margin: unset;
+}
+
+.main_container .poll_holder .last_question_poll .option_progress--wrapper {
+    width: 80%;
+    margin: 0 auto;
+    color: var(--student-text-color);
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+.main_container
+    .poll_holder
+    .last_question_poll
+    .option_progress--wrapper
+    .progress-container {
+    background-color: #fff;
+}
+.main_container
+    .poll_holder
+    .last_question_poll
+    .option_progress--wrapper
+    .progress-container
+    .progress {
+    height: 1.4rem;
+}
+
+.main_container
+    .poll_holder
+    .last_question_poll
+    .option_progress--wrapper
+    .option_progress {
+    width: 100%;
+}
+.main_container
+    .poll_holder
+    .last_question_poll
+    .option_progress--wrapper
+    .option_progress
+    .option_container {
+    color: var(--student-secondary-color);
+}
+
 .main_container .question_container {
     width: 95%;
     margin: 0 auto;
@@ -49,6 +107,7 @@ nav {
     align-items: center;
     position: relative;
     justify-content: center;
+    background-color: var(--primary-yellow);
 }
 
 nav .background {
@@ -86,7 +145,7 @@ nav .logo-container {
 .question_container .timer {
     width: 8rem;
     height: 8rem;
-    background: var(--third_main_color);
+    background: #fff;
     position: absolute;
     left: 50%;
     transform: translate(-50%);
@@ -95,6 +154,8 @@ nav .logo-container {
     align-items: center;
     justify-content: center;
     bottom: -3.9rem;
+    color: var(--student-text-color);
+    box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
 }
 .button_container {
     width: 35%;
@@ -103,7 +164,7 @@ nav .logo-container {
 }
 .button_container button {
     border: none;
-    background: var(--secondary-color);
+    background: var(--student-background-color);
     padding: 1.2rem;
     color: white;
     font-family: inherit;
@@ -177,7 +238,7 @@ select {
     height: 10px;
     border-radius: 50%;
     content: "";
-    background-color: var(--secondary-color);
+    background-color: var(--student-secondary-color);
     position: absolute;
     left: 50%;
     top: 50%;
@@ -531,8 +592,9 @@ button > * {
 .question_action--container .question_container .timer {
     width: 6rem;
     height: 6rem;
-
+    background-color: var(--third_main_color);
     bottom: -3rem;
+    box-shadow: none;
 }
 
 .question_action--container .question_container textarea {

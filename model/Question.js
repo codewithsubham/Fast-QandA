@@ -27,21 +27,22 @@ module.exports = class Question {
             poll: this.#answerPoll,
             answer: this.#publishedData.answer,
             options: this.#publishedData.options,
+            question: this.#publishedData.question,
         };
     }
 
     getQuestionObject() {
-        if (!this.#isCompleted) {
-            return {
-                isCompleted: this.#isCompleted,
-                questionid: this.#questionid,
-                remainingtime: this.#remainingTime,
-                room: this.#room,
-                question: this.#publishedData.question,
-                options: this.#publishedData.options,
-            };
-        }
-        return (this.#answerPoll["isCompleted"] = this.#isCompleted);
+        //if (!this.#isCompleted) {
+        return {
+            isCompleted: this.#isCompleted,
+            questionid: this.#questionid,
+            remainingtime: this.#remainingTime,
+            room: this.#room,
+            question: this.#publishedData.question,
+            options: this.#publishedData.options,
+        };
+        // }
+        //return (this.#answerPoll["isCompleted"] = this.#isCompleted);
     }
     setpublishedData(answer) {
         if (this.#isCompleted) {
@@ -70,14 +71,14 @@ module.exports = class Question {
             console.log(this.#remainingTime);
             this.#remainingTime--;
             if (this.#remainingTime == 0) {
-                this.#remainingTime = 0;
-                this.#isCompleted = true;
-                clearInterval(this.#timer);
+                this.deleteTimers();
             }
         }, 1000);
     }
 
     deleteTimers() {
+        this.#remainingTime = 0;
+        this.#isCompleted = true;
         clearInterval(this.#timer);
     }
 };

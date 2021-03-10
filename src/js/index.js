@@ -3,6 +3,7 @@ import { elements, functionName, globalData } from "./views/elements";
 import * as renderAddSlideForm from "./views/renderAddSlides";
 import { renderPollScreen } from "./views/renderPollScreen";
 import { renderActivePollResult } from "./views/renderActivePollResult";
+import { renderPollScreenForResponder } from "./views/renderPollScreenResponder";
 
 let socket;
 
@@ -12,13 +13,16 @@ window.addEventListener("load", () => {
     if (typeof userType != undefined) {
         if (userType === "responder") {
             // render for responder
-
+            document.querySelector("body").style.backgroundColor =
+                "var(--student-background-color)"; /*  #45a18c; */
             document.querySelector(".main_container").style.display = "initial";
             document.querySelector(".teacher_maincontainer-holder").remove();
             document.querySelector("nav").style.display = "flex";
             initResponder();
             return;
         }
+        document.querySelector("body").style.backgroundColor =
+            "var(--main-background-color)";
         document.querySelector("nav").remove();
         document.querySelector(".main_container").remove();
 
@@ -55,6 +59,11 @@ let initResponder = () => {
         startQuestion(data);
     });
 
+    socket.on(`${room}-receiveAnswerWithPoll`, (poll) => {
+        renderPollScreenForResponder(poll);
+        renderActivePollResult(poll.poll);
+    });
+
     return;
 };
 
@@ -68,6 +77,9 @@ let initTeacherPanel = () => {
 
     socket.on(`${room}-livePolling`, (data) => {
         renderActivePollResult(data);
+    });
+    socket.on(`${room}-receiveAnswerWithPoll`, (poll) => {
+        console.log(poll, "answer is received");
     });
 };
 
