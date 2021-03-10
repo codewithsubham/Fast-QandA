@@ -48,5 +48,9 @@ export const renderPollScreen = (questionId) => {
             .insertAdjacentHTML("beforeend", renderOptions(option));
     }
 
+    document.querySelector("#publish_result").addEventListener("click", (e) => {
+        functionName.publishResult();
+    });
+
     return;
 };

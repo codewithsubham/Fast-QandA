@@ -17,6 +17,19 @@ module.exports = class Question {
         this.#publishedData = data;
         this.timerForEachQuestion(this.#timeOut);
     }
+
+    getFinalPollWithAnswer() {
+        /**
+         * this function returns finalPoll
+         */
+
+        return {
+            poll: this.#answerPoll,
+            answer: this.#publishedData.answer,
+            options: this.#publishedData.options,
+        };
+    }
+
     getQuestionObject() {
         if (!this.#isCompleted) {
             return {

@@ -81,8 +81,9 @@ io.on("connection", (socket, err) => {
     // ${room}-receiveAnswer receive answer from all students
     socket.on(`${room}-receiveAnsWer`, (data) => {
         console.log(data);
-
-        questionObject[room].setpublishedData(data);
+        if (room in questionObject) {
+            questionObject[room].setpublishedData(data);
+        }
         // total all the number answer and broadcast to every on
         //store the data
         // console.log(data + "from students from room" + room);
@@ -92,11 +93,18 @@ io.on("connection", (socket, err) => {
 
     // ${room}-postAnswerWithPoll will  answer the last question's with students poll
     /**
-     * a :40% , b:30% , c:10% ,d:20%
+     * a :100 , b:300 , c:32 ,d:54 and so on
+     * % is being calculated at client end
      */
 
     socket.on(`${room}-postAnswerWithPoll`, (data) => {
-        io.to(room).emit(`${room}-receiveAnswerWithPoll`, data);
+        if (room in questionObject) {
+            console.log(questionObject[room].getFinalPollWithAnswer());
+            io.to(room).emit(
+                `${room}-receiveAnswerWithPoll`,
+                questionObject[room].getFinalPollWithAnswer()
+            );
+        }
     });
 
     socket.on(`${room}-clearPreviousQuestion`, (data) => {

@@ -116,6 +116,10 @@ functionName.sendAnswer = (questionId) => {
     return;
 };
 
+functionName.publishResult = () => {
+    socket.emit(`${room}-postAnswerWithPoll`);
+};
+
 let startQuestion = (data) => {
     console.log(data);
     renderQuestion.renderQuestion(data, socket);
