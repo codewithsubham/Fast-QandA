@@ -8,6 +8,7 @@ module.exports = class Question {
     #publishedData;
     #answerPoll = {};
     #isCompleted = false;
+    isAnswerPublished = false;
 
     constructor(io, room, data) {
         this.#io = io;
@@ -22,7 +23,7 @@ module.exports = class Question {
         /**
          * this function returns finalPoll
          */
-
+        this.isAnswerPublished = true;
         return {
             poll: this.#answerPoll,
             answer: this.#publishedData.answer,
@@ -33,6 +34,7 @@ module.exports = class Question {
 
     getQuestionObject() {
         //if (!this.#isCompleted) {
+
         return {
             isCompleted: this.#isCompleted,
             questionid: this.#questionid,

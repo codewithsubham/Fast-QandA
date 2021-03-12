@@ -54,16 +54,20 @@ io.on("connection", (socket, err) => {
         socket.broadcast.to(room).emit(room, "teacher is online");
     }
     if (userType === "responder") {
-        console.log("responder connected");
         if (room in questionObject) {
+            if (questionObject[room].isAnswerPublished) {
+                io.to(room).emit(
+                    `${room}-receiveAnswerWithPoll`,
+                    questionObject[room].getFinalPollWithAnswer()
+                );
+                return;
+            }
             io.to(room).emit(
                 `${room}-receiveQuestion`,
                 questionObject[room].getQuestionObject()
             );
         }
     }
-    //io.to(room).emit(room, "teacher is online");
-    // send question to all student
 
     socket.on(`${room}-postQuestion`, (data) => {
         if (room in questionObject) {
@@ -75,7 +79,6 @@ io.on("connection", (socket, err) => {
             `${room}-receiveQuestion`,
             questionObject[room].getQuestionObject()
         );
-        // questionObject.room.timerForEachQuestion();
     });
 
     // ${room}-receiveAnswer receive answer from all students
@@ -99,7 +102,6 @@ io.on("connection", (socket, err) => {
 
     socket.on(`${room}-postAnswerWithPoll`, (data) => {
         if (room in questionObject) {
-            console.log(questionObject[room].getFinalPollWithAnswer());
             io.to(room).emit(
                 `${room}-receiveAnswerWithPoll`,
                 questionObject[room].getFinalPollWithAnswer()

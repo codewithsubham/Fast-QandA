@@ -2,6 +2,7 @@ import { elements, globalData, functionName } from "./elements";
 import { v4 as uuidv4 } from "uuid";
 
 import { renderSlide } from "./renderSlide";
+import { HttpConnect } from "../models/Api";
 
 export const renderAddSlideForm = () => {
     let id = `${room}_${uuidv4()}`;
@@ -99,7 +100,7 @@ export const renderAddSlideForm = () => {
 
     document
         .querySelector(".slides_botton-add")
-        .addEventListener("click", (e) => {
+        .addEventListener("click", async (e) => {
             let tempObj = { options: {} };
             let textAreaValue = [
                 ...document
@@ -133,27 +134,31 @@ export const renderAddSlideForm = () => {
             tempObj["answer"] = document.querySelector(
                 ".add_slides_form-container select"
             ).value;
+            tempObj["saveToDB"] = true;
+            tempObj["roomName"] = room;
 
             globalData.addSlidesJsonData[id] = tempObj;
 
+            let response = await HttpConnect("POST", endPoint, tempObj);
+
+            if (response != 200) {
+                return;
+            }
             // renderSlide is function to add slides to page from addSlides Form
             if (renderSlide(id)) {
-                console.log(globalData.addSlidesJsonData[id], "checking");
                 e.target.parentNode.parentNode.parentNode.remove();
             }
         });
 
     document.querySelector(".slides_botton-close").addEventListener(
         "click",
-        (e) => {
+
+        async (e) => {
             console.log(e.target, e.target.parentNode.parentNode.parentNode);
             e.target.parentNode.parentNode.remove();
         },
         true
     );
 
-    document.querySelector("input").addEventListener("change", (e) => {
-        console.log(e.target);
-    });
     return;
 };

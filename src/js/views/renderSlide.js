@@ -1,5 +1,6 @@
 import { elements, functionName, globalData } from "./elements";
 import { renderEditSlideForm } from "./renderEditForm";
+import { HttpConnect } from "../models/Api";
 
 export const renderSlide = (questionId) => {
     if (globalData.addSlidesJsonData[questionId].question.trim() === "") {

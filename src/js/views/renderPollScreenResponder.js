@@ -32,12 +32,7 @@ export const renderPollScreenForResponder = (data) => {
                    ${data.question}
                 </p>
             </div>
-           
-
-
-           
-          
-        </div>
+         </div>
     </div>
 </div>`;
 
@@ -66,102 +61,4 @@ export const renderPollScreenForResponder = (data) => {
     }
 
     renderActivePollResult(data.poll);
-    //document.querySelector(".main_container .progess_option_container")
 };
-
-/**
- * 
- * 
- *  <div class="poll_holder">
-                <div class="last_question_poll">
-                    <div class="progess_option_container">
-                        <div class="question_container">
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Repudiandae id aut eligendi
-                                quos eius, hic odio, sint quas facere velit
-                                fugiat illo, voluptates laborum nostrum in
-                                doloribus. Animi, consectetur quos?
-                            </p>
-                        </div>
-                        <div class="option_progress--wrapper">
-                            <p>Question 1</p>
-                            <div class="option_progress">
-                                <div class="option_container" id="A_percent">
-                                    0%
-                                </div>
-                                <div class="progress-container">
-                                    <div
-                                        id="A_bar"
-                                        style="
-                                            background-color: var(
-                                                --secondary-color
-                                            );
-                                        "
-                                        class="progress"
-                                    ></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="option_progress--wrapper">
-                            <p>Question 1</p>
-                            <div class="option_progress">
-                                <div class="option_container" id="A_percent">
-                                    0%
-                                </div>
-                                <div class="progress-container">
-                                    <div
-                                        id="A_bar"
-                                        style="
-                                            background-color: var(
-                                                --secondary-color
-                                            );
-                                        "
-                                        class="progress"
-                                    ></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="option_progress--wrapper">
-                            <p>Question 1</p>
-                            <div class="option_progress">
-                                <div class="option_container" id="A_percent">
-                                    0%
-                                </div>
-                                <div class="progress-container">
-                                    <div
-                                        id="A_bar"
-                                        style="
-                                            background-color: var(
-                                                --secondary-color
-                                            );
-                                        "
-                                        class="progress"
-                                    ></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="option_progress--wrapper">
-                            <p>Question 1</p>
-                            <div class="option_progress">
-                                <div class="option_container" id="A_percent">
-                                    0%
-                                </div>
-                                <div class="progress-container">
-                                    <div
-                                        id="A_bar"
-                                        style="
-                                            background-color: var(
-                                                --secondary-color
-                                            );
-                                        "
-                                        class="progress"
-                                    ></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
- */
