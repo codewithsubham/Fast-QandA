@@ -657,6 +657,7 @@ input::-webkit-inner-spin-button {
     background-color: var(--main-card-color);
     margin-bottom: 1rem;
     padding: 1rem 4rem 0;
+    box-shadow: 0px 0px 4px 1px rgb(0 0 0 / 10%);
 }
 
 .last_question_poll .option_progress {
@@ -675,6 +676,9 @@ input::-webkit-inner-spin-button {
     font-weight: 700;
     text-align: center;
     padding: 2rem;
+    background-color: var(--third_main_color);
+    border-radius: 8px;
+    margin-bottom: 3rem;
 }
 .progress-container {
     width: 100%;
@@ -688,12 +692,12 @@ input::-webkit-inner-spin-button {
 
 .option_progress {
     margin-bottom: 1rem;
-    width: 80%;
+    width: 82%;
     margin: 0 auto;
 }
 
 .last_question_poll .option_container {
-    width: 4rem;
+    width: 6rem;
     height: 4rem;
     display: flex;
     align-items: center;

@@ -2,7 +2,7 @@ import { elements, globalData, functionName } from "./elements";
 
 let renderOptions = (option, color = "var(--svg-color)") => {
     let optionElement = ` <div class="option_progress">
-<div class="option_container" id="${option}_percent">0%</div>
+<div class="option_container" id="${option}_percent" style="color:${color}">0%</div>
 <div class="progress-container">
     <div id="${option}_bar" style="
     background-color:${color};

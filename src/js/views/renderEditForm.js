@@ -1,6 +1,7 @@
 import { elements, globalData, functionName } from "./elements";
 import { renderSelectAnswer } from "./renderSelectAnswer";
-
+import { HttpConnect } from "../models/Api";
+import toastr from "toastr";
 export const renderEditSlideForm = (questionId) => {
     let mediaSourceElement = "";
     if (globalData.addSlidesJsonData[questionId].media_source !== "") {
@@ -113,12 +114,12 @@ let close = () => {
     document.querySelector(".question_action--container").remove();
 };
 let send = (questionId, e) => {
-    update(questionId);
+    update(questionId, false);
     renderEditSlideForm(questionId);
     functionName.publishQuestion(questionId);
 };
 
-let update = (questionId) => {
+let update = async (questionId, save = true) => {
     let inputFeilds = [
         ...document.querySelectorAll(
             ".question_action--container textarea , input[type=number] , input[type=text]"
@@ -131,11 +132,6 @@ let update = (questionId) => {
     ];
 
     inputFeilds.map((element) => {
-        if (element.name === "question") {
-            document.querySelector(
-                `.slide_question_id-${questionId}`
-            ).innerHTML = element.value;
-        }
         globalData.addSlidesJsonData[questionId][
             element.name
         ] = element.value.trim();
@@ -159,7 +155,21 @@ let update = (questionId) => {
         ".option_container select"
     ).value;
 
-    console.log(globalData.addSlidesJsonData[questionId], "from update");
+    let updateResponse = await HttpConnect("POST", endPoint, {
+        update: true,
+        data: globalData.addSlidesJsonData[questionId],
+    });
+    if (save) {
+        if (updateResponse != 200) {
+            toastr.error("Unable to update your slide");
+            // return;
+        } else {
+            //console.log(updateResponse);
+            toastr.success("Updated successfully");
+        }
+    }
+    document.querySelector(`.slide_question_id-${questionId}`).innerHTML =
+        globalData.addSlidesJsonData[questionId].question;
     renderEditSlideForm(questionId);
 };
 

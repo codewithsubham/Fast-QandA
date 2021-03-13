@@ -2,8 +2,11 @@ import { elements, functionName, globalData } from "./elements";
 import { renderEditSlideForm } from "./renderEditForm";
 import { HttpConnect } from "../models/Api";
 
+import toastr from "toastr";
+
 export const renderSlide = (questionId) => {
     if (globalData.addSlidesJsonData[questionId].question.trim() === "") {
+        toastr.error("question was not provided");
         return false;
     }
     //https://www.youtube.com/watch?v=5FndZ_hoeGU

@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import { renderSlide } from "./renderSlide";
 import { HttpConnect } from "../models/Api";
 
+import toastr from "toastr";
+
 export const renderAddSlideForm = () => {
     let id = `${room}_${uuidv4()}`;
     let element = ` <div class="add_slides_form-container"><header>
@@ -130,20 +132,24 @@ export const renderAddSlideForm = () => {
             }
 
             tempObj["timeout"] = 30;
-            tempObj["questionid"] = id;
+            tempObj["questionId"] = id;
             tempObj["answer"] = document.querySelector(
                 ".add_slides_form-container select"
             ).value;
-            tempObj["saveToDB"] = true;
-            tempObj["roomName"] = room;
+            tempObj["room"] = room;
+            tempObj["username"] = userName;
+
+            let response = await HttpConnect("POST", endPoint, {
+                saveToDB: true,
+                data: tempObj,
+            });
+
+            if (response != 200) {
+                // return;
+            }
 
             globalData.addSlidesJsonData[id] = tempObj;
 
-            let response = await HttpConnect("POST", endPoint, tempObj);
-
-            if (response != 200) {
-                return;
-            }
             // renderSlide is function to add slides to page from addSlides Form
             if (renderSlide(id)) {
                 e.target.parentNode.parentNode.parentNode.remove();

@@ -4,10 +4,14 @@ import * as renderAddSlideForm from "./views/renderAddSlides";
 import { renderPollScreen } from "./views/renderPollScreen";
 import { renderActivePollResult } from "./views/renderActivePollResult";
 import { renderPollScreenForResponder } from "./views/renderPollScreenResponder";
+import { HttpConnect } from "./models/Api";
+import { renderSlide } from "./views/renderSlide";
+
+import toastr from "toastr";
 
 let socket;
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
     initConnection();
 
     if (typeof userType != undefined) {
@@ -20,6 +24,20 @@ window.addEventListener("load", () => {
             document.querySelector("nav").style.display = "flex";
             initResponder();
             return;
+        }
+
+        let response = await HttpConnect("POST", endPoint, {
+            getSlides: true,
+            roomName: room,
+        });
+
+        if (response) {
+            for (let data of response) {
+                globalData.addSlidesJsonData[data.questionId] = data;
+                renderSlide(data.questionId);
+            }
+        } else {
+            toastr.error("unable to get your slides from server");
         }
         document.querySelector("body").style.backgroundColor =
             "var(--main-background-color)";
@@ -34,8 +52,7 @@ window.addEventListener("load", () => {
 
 let initConnection = () => {
     let st =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1YmhhbSIsInBhc3N3b3JkIjoiYXNkYXNkIiwiZW1haWwiOiJzdWJoYW1wcmFzYWQ1NTJAZ21haWwuY29tIiwicGhvbmUiOiI5MjA1NTQ2MTczIiwiaWF0IjoxNjE0MzIwNTA4LCJleHAiOjE2MTY5MTI1MDh9.2yi2VY_itNL-yS0m70oioB4IzFjDjUvIG1b-gQGZTXo";
-
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1YmhhbSIsInBhc3N3b3JkIjoiYXNkYXNkIiwiZW1haWwiOiJzdWJoYW1wcmFzYWQ1NTJAZ21haWwuY29tIiwicGhvbmUiOiI5MjA1NTQ2MTczIiwiaWF0IjoxNjE1NTUwOTg4LCJleHAiOjE2MTgxNDI5ODh9.PF6s3ChhklZ9jaMu9cLbpwVKNDAYkX_b2jUVtO3JVeg";
     socket = io(`${window.location.hostname}:3000`, {
         query: { room: room, userType: userType, details: st },
     });
@@ -79,7 +96,12 @@ let initTeacherPanel = () => {
         renderActivePollResult(data);
     });
     socket.on(`${room}-receiveAnswerWithPoll`, (poll) => {
+        toastr.success("result was posted");
+
         console.log(poll, "answer is received");
+    });
+    socket.on(`${room}-receiveQuestion`, (data) => {
+        toastr.success("question was posted successfully");
     });
 };
 
@@ -87,7 +109,17 @@ let initTeacherPanel = () => {
 // send answer for last question
 
 functionName.publishQuestion = (questionId) => {
-    console.log("from publish function", questionId);
+    if (
+        Object.keys(globalData.addSlidesJsonData[questionId].options).length < 2
+    ) {
+        toastr.warning("Atleast two options are required");
+        return;
+    }
+    if (globalData.addSlidesJsonData[questionId].answer === "") {
+        toastr.warning("No answer was selected");
+        return;
+    }
+    //console.log("from publish function", questionId);
     socket.emit("room-postQuestion", globalData.addSlidesJsonData[questionId]);
     renderPollScreen(questionId);
 };
@@ -133,7 +165,6 @@ functionName.publishResult = () => {
 };
 
 let startQuestion = (data) => {
-    console.log(data);
     renderQuestion.renderQuestion(data, socket);
 };
 

@@ -27,7 +27,7 @@ export const renderQuestion = (data) => {
 
     for (let option in data.options) {
         let optionsHTML = ` <div class="inputGroup">
-        <input id="${option}" name="radio" value='${option}' questionid="${data.questionid}" type="radio" />
+        <input id="${option}" name="radio" value='${option}' questionid="${data.questionId}" type="radio" />
         <label for="${option}">${data.options[option]}</label>
     </div>`;
         document
