@@ -17,20 +17,30 @@ window.addEventListener("load", async () => {
     if (typeof userType != undefined) {
         if (userType === "responder") {
             // render for responder
+            
             document.querySelector("body").style.backgroundColor =
-                "var(--student-background-color)"; /*  #45a18c; */
+                "var(--student-background-color)";   #45a18c; 
             document.querySelector(".main_container").style.display = "initial";
             document.querySelector(".teacher_maincontainer-holder").remove();
             document.querySelector("nav").style.display = "flex";
+            
             initResponder();
             return;
         }
 
+        let response = await HttpConnect(
+            "POST",
+            `http://${endPoint}/getSlides`,
+            {
+                username: userName,
+            }
+        );
+        /*
         let response = await HttpConnect("POST", endPoint, {
             getSlides: true,
             roomName: room,
         });
-
+        */
         if (response) {
             for (let data of response) {
                 globalData.addSlidesJsonData[data.questionId] = data;
@@ -39,11 +49,12 @@ window.addEventListener("load", async () => {
         } else {
             toastr.error("unable to get your slides from server");
         }
+        /*
         document.querySelector("body").style.backgroundColor =
             "var(--main-background-color)";
         document.querySelector("nav").remove();
         document.querySelector(".main_container").remove();
-
+        */
         initTeacherPanel();
 
         //render for teacher
@@ -51,9 +62,8 @@ window.addEventListener("load", async () => {
 });
 
 let initConnection = () => {
-    let st =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1YmhhbSIsInBhc3N3b3JkIjoiYXNkYXNkIiwiZW1haWwiOiJzdWJoYW1wcmFzYWQ1NTJAZ21haWwuY29tIiwicGhvbmUiOiI5MjA1NTQ2MTczIiwiaWF0IjoxNjE1NTUwOTg4LCJleHAiOjE2MTgxNDI5ODh9.PF6s3ChhklZ9jaMu9cLbpwVKNDAYkX_b2jUVtO3JVeg";
-    socket = io(`${window.location.hostname}:3000`, {
+    let st = dt;
+    socket = io(`${window.location.host}`, {
         query: { room: room, userType: userType, details: st },
     });
 
@@ -61,9 +71,6 @@ let initConnection = () => {
         console.log("connected");
     });
 
-    socket.on(`${room}-timer`, (data) => {
-        console.log(data, " seconds");
-    });
     socket.on("connect_error", (err) => {
         console.log(err.message); // prints the message associated with the error
     });
@@ -98,7 +105,7 @@ let initTeacherPanel = () => {
     socket.on(`${room}-receiveAnswerWithPoll`, (poll) => {
         toastr.success("result was posted");
 
-        console.log(poll, "answer is received");
+        // console.log(poll, "answer is received");
     });
     socket.on(`${room}-receiveQuestion`, (data) => {
         toastr.success("question was posted successfully");
@@ -120,7 +127,10 @@ functionName.publishQuestion = (questionId) => {
         return;
     }
     //console.log("from publish function", questionId);
-    socket.emit("room-postQuestion", globalData.addSlidesJsonData[questionId]);
+    socket.emit(
+        `${room}-postQuestion`,
+        globalData.addSlidesJsonData[questionId]
+    );
     renderPollScreen(questionId);
 };
 

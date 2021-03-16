@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/reset.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/toaster.css" />
+        <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <title>fast Q&A</title>
+        <style>
+            iframe {
+                aspect-ratio: 16/9;
+            }
+        </style>
+    </head>
+
+    <body>
+        <nav>
+            <img class="background" src="img/final.png" alt="" srcset="" />
+            <div class="logo-container">
+                <img src="img/vision.png" class="logo" alt="" srcset="" />
+            </div>
+        </nav>
+
+        <!-- show if logged in as a teacher-->
+
+        <div class="teacher_maincontainer-holder">
+            <div class="section section_1">
+                <div class="slides_holder slides_reset"></div>
+            </div>
+            <div class="section section_2">
+                <div class="form_question_holder"></div>
+                <div class="poll_holder"></div>
+            </div>
+
+            <div class="section section_3">
+                <div class="tools_container">
+                    <div class="logo-container">
+                        <img
+                            src="img/logo.png"
+                            class="logo_icon"
+                            alt=""
+                            srcset=""
+                        />
+                    </div>
+
+                    <div class="add_slides">
+                        <button id="add_slides">
+                            <svg class="create_icon location_icon">
+                                <use
+                                    xlink:href="img/svg/sprite.svg#icon-add-black-18dp"
+                                ></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main_container" style="display: none"></div>
+    </body>
+
+    <script>
+        const userType = new URLSearchParams(
+            window.location.search.substring(1)
+        ).get("type");
+        const room = "room";
+        const endPoint = "http://localhost/fastQandA/";
+        const userName = "shubham";
+    </script>
+    <script src="js/bundle.js"></script>
+</html>

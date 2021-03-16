@@ -138,14 +138,33 @@ export const renderAddSlideForm = () => {
             ).value;
             tempObj["room"] = room;
             tempObj["username"] = userName;
+            // `http://${window.location.hostname}:3000/getSlides`
 
+            if (tempObj.question.trim() === "") {
+                toastr.error("question was not provided");
+                return;
+            }
+
+            let response = await HttpConnect(
+                "POST",
+                `http://${endPoint}/addSlides`,
+                {
+                    data: tempObj,
+                }
+            );
+
+            /*
             let response = await HttpConnect("POST", endPoint, {
-                saveToDB: true,
+                
                 data: tempObj,
             });
+            */
 
-            if (response != 200) {
+            if (response == 200) {
                 // return;
+                toastr.success("slide added succesfully");
+            } else {
+                toastr.error("unable to save slides");
             }
 
             globalData.addSlidesJsonData[id] = tempObj;
@@ -160,7 +179,6 @@ export const renderAddSlideForm = () => {
         "click",
 
         async (e) => {
-            console.log(e.target, e.target.parentNode.parentNode.parentNode);
             e.target.parentNode.parentNode.remove();
         },
         true

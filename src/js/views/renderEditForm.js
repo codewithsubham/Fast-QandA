@@ -154,11 +154,17 @@ let update = async (questionId, save = true) => {
     globalData.addSlidesJsonData[questionId].answer = document.querySelector(
         ".option_container select"
     ).value;
+    /*
+        let updateResponse = await HttpConnect("POST", endPoint, {
+            update: true,
+            data: globalData.addSlidesJsonData[questionId],
+        });
+        */
 
-    let updateResponse = await HttpConnect("POST", endPoint, {
-        update: true,
-        data: globalData.addSlidesJsonData[questionId],
-    });
+    let updateResponse = await HttpConnect("POST", `http://${endPoint}/updateSlide`, {
+        data: globalData.addSlidesJsonData[questionId]
+    })
+
     if (save) {
         if (updateResponse != 200) {
             toastr.error("Unable to update your slide");

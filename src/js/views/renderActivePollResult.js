@@ -1,9 +1,7 @@
 export const renderActivePollResult = (data) => {
     let total = 0;
-    console.log(data);
     for (let numberOfResponse in data) {
         total += data[numberOfResponse];
-        console.log(data[numberOfResponse], total);
     }
 
     for (let progress in data) {

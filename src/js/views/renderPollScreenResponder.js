@@ -22,8 +22,6 @@ let progressResultElement = (option, options, color = "#D15A2A") => {
 };
 
 export const renderPollScreenForResponder = (data) => {
-    console.log(data.poll, globalData.lastSelected);
-
     let studentPollScreen = `<div class="poll_holder">
     <div class="last_question_poll">
         <div class="progess_option_container">

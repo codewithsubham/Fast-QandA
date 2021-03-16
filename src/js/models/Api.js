@@ -8,9 +8,12 @@ export const HttpConnect = async (method = "GET", endPoint, data = {}) => {
             },
             body: JSON.stringify(data), // body data type must match "Content-Type" header
         });
-        return response.json();
+        if (response) {
+            return response.json();
+        }
+        return false;
+
     } catch (error) {
-        console.log(error);
         return false;
     }
 };

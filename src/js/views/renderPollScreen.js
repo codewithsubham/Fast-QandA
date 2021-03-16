@@ -14,11 +14,6 @@ let renderOptions = (option, color = "var(--svg-color)") => {
 };
 
 export const renderPollScreen = (questionId) => {
-    console.log(
-        globalData.addSlidesJsonData[questionId],
-        "from polling screen"
-    );
-
     let element = `       <div class="last_question_poll">
     <div class="header_holder">
        ${globalData.addSlidesJsonData[questionId].question}
